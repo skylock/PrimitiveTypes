@@ -91,6 +91,18 @@ namespace PrimitiveTypes
             Assert.AreEqual(result, expectedResult);
         }
 
+        [TestMethod]
+        public void Compute_Bricks_Needed_When_All_Input_Values_Are_Negative() {
+            int fieldLength = -1;
+            int fieldWidth = -1;
+            int brickSideLengh = -1;
+            int expectedResult = 0;
+
+            int result = ComputeNeededBricks(fieldLength, fieldWidth, brickSideLengh);
+
+            Assert.AreEqual(result, expectedResult);
+        }
+
         private int ComputeNeededBricks(int fieldLength, int fieldWidth, int brickSideLengh) {
             int briksOnLength = ComputeBricksOnSide(fieldLength,brickSideLengh);
             int bricksOnWith = ComputeBricksOnSide(fieldWidth, brickSideLengh);
