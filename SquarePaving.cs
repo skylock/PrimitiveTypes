@@ -15,7 +15,7 @@ namespace PrimitiveTypes
 
             int result = ComputeNeededBricks(fieldLength, fieldWidth, brickSideLengh);
 
-            Assert.AreEqual(result, expectedResult);
+            Assert.AreEqual(expectedResult, result);
         }
 
         [TestMethod]
@@ -27,7 +27,7 @@ namespace PrimitiveTypes
 
             int result = ComputeNeededBricks(fieldLength, fieldWidth, brickSideLengh);
 
-            Assert.AreEqual(result, expectedResult);
+            Assert.AreEqual(expectedResult, result);
         }
 
         [TestMethod]
@@ -39,7 +39,19 @@ namespace PrimitiveTypes
 
             int result = ComputeNeededBricks(fieldLength, fieldWidth, brickSideLengh);
 
-            Assert.AreEqual(result, expectedResult);
+            Assert.AreEqual(expectedResult, result);
+        }
+
+        [TestMethod]
+        public void Compute_Bricks_Needed_When_BrickSide_Is_Exact_Multiple_For_Field_Length_Or_Width() {
+            int fieldLength = 8;
+            int fieldWidth = 8;
+            int brickSideLengh = 2;
+            int expectedResult = 16;
+
+            int result = ComputeNeededBricks(fieldLength, fieldWidth, brickSideLengh);
+
+            Assert.AreEqual(expectedResult, result);
         }
 
         [TestMethod]
@@ -51,9 +63,8 @@ namespace PrimitiveTypes
 
             int result = ComputeNeededBricks(fieldLength, fieldWidth, brickSideLengh);
 
-            Assert.AreEqual(result, expectedResult);
+            Assert.AreEqual(expectedResult, result);
         }
-
 
         [TestMethod]
         public void Compute_Bricks_Needed_When_FieldLength_Is_Zero() {
@@ -64,7 +75,7 @@ namespace PrimitiveTypes
 
             int result = ComputeNeededBricks(fieldLength, fieldWidth, brickSideLengh);
 
-            Assert.AreEqual(result, expectedResult);
+            Assert.AreEqual(expectedResult, result);
         }
 
         [TestMethod]
@@ -76,7 +87,7 @@ namespace PrimitiveTypes
 
             int result = ComputeNeededBricks(fieldLength, fieldWidth, brickSideLengh);
 
-            Assert.AreEqual(result, expectedResult);
+            Assert.AreEqual(expectedResult, result);
         }
 
         [TestMethod]
@@ -88,7 +99,7 @@ namespace PrimitiveTypes
 
             int result = ComputeNeededBricks(fieldLength, fieldWidth, brickSideLengh);
 
-            Assert.AreEqual(result, expectedResult);
+            Assert.AreEqual(expectedResult, result);
         }
 
         [TestMethod]
@@ -100,7 +111,7 @@ namespace PrimitiveTypes
 
             int result = ComputeNeededBricks(fieldLength, fieldWidth, brickSideLengh);
 
-            Assert.AreEqual(result, expectedResult);
+            Assert.AreEqual(expectedResult, result);
         }
 
         private int ComputeNeededBricks(int fieldLength, int fieldWidth, int brickSideLengh) {
@@ -116,7 +127,11 @@ namespace PrimitiveTypes
                 if (sideSize == 0) {
                     return 0;
                 } else if (brickSideSize > 0) {
-                    return ((sideSize / brickSideSize) + 1);
+                    if (sideSize % brickSideSize == 0) {
+                        return sideSize / brickSideSize;
+                    } else {
+                        return (sideSize / brickSideSize) + 1;
+                    }
                 } else {
                     return 0;
                 }
