@@ -6,8 +6,6 @@ namespace PrimitiveTypes
     [TestClass]
     public class ExcelColumns
     {
-        public const int LETTERS_COUNT = 26;
-
         [TestMethod]
         [TestCategory("02_ExcelColumns")]
         public void Column_Combination_If_Less_Than_27 () {
@@ -50,19 +48,19 @@ namespace PrimitiveTypes
 
         private string GetColumnID(int columnNumber) {
             string result = string.Empty;
-            int divisionResult = columnNumber / LETTERS_COUNT;
-            int remainder = columnNumber % LETTERS_COUNT;
+            int divisionResult = columnNumber / 26;
+            int remainder = columnNumber % 26;
             if (divisionResult < 1) {
-                return result + GetChar(columnNumber);
+                return result + CovertDigitToChar(columnNumber);
             } else {
-                result = result + GetChar(divisionResult);
-                result = result + GetChar(remainder);
+                result = result + CovertDigitToChar(divisionResult);
+                result = result + CovertDigitToChar(remainder);
                 return result;
             } 
         }
 
-        private static char GetChar(int index) {
-            return (char)(('A' - 1)  + index);
+        private static char CovertDigitToChar(int digit) {
+            return (char)(('A' - 1)  + digit);
         }
     }
 }
