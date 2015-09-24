@@ -6,6 +6,8 @@ namespace PrimitiveTypes
     [TestClass]
     public class ExcelColumns
     {
+        // Solution taken from http://stackoverflow.com/questions/181596/how-to-convert-a-column-number-eg-127-into-an-excel-column-eg-aa
+
         [TestMethod]
         [TestCategory("02_ExcelColumns")]
         public void Column_Combination_If_Less_Than_27 () {
@@ -46,21 +48,31 @@ namespace PrimitiveTypes
             Assert.AreEqual("BA", columnID);
         }
 
-        private string GetColumnID(int columnNumber) {
-            string result = string.Empty;
-            int divisionResult = columnNumber / 26;
-            int remainder = columnNumber % 26;
-            if (divisionResult < 1) {
-                return result + CovertDigitToChar(columnNumber);
-            } else {
-                result = result + CovertDigitToChar(divisionResult);
-                result = result + CovertDigitToChar(remainder);
-                return result;
-            } 
+        [TestMethod]
+        [TestCategory("02_ExcelColumns")]
+        public void Column_Combination_If_Equal_To_16384() {
+            int columnNumber = 16384;
+
+            string columnID = GetColumnID(columnNumber);
+
+            Assert.AreEqual("XFD", columnID);
         }
 
-        private static char CovertDigitToChar(int digit) {
-            return (char)(('A' - 1)  + digit);
+        private string GetColumnID(int columnNumber) {
+            string result = string.Empty;
+            int divisionResult = columnNumber;
+            int remainder;
+
+            while (divisionResult > 0) {
+                remainder = (divisionResult - 1) % 26;
+                result = CovertDigitToChar(remainder) + result;
+                divisionResult = (divisionResult - remainder) / 26;
+            }
+            return result;
+        }
+
+        private static string CovertDigitToChar(int digit) {
+            return Convert.ToChar('A'  + digit).ToString();
         }
     }
 }
