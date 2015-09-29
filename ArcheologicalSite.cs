@@ -13,7 +13,7 @@ namespace PrimitiveTypes
             Point B = new Point(1.000000, 1.000000);
             Point C = new Point(0.000000, 1.000000);
 
-            double actualArea = ComputeArea(A, B, C);
+            double actualArea = ComputeMinimumArea(A, B, C);
 
             Assert.AreEqual(1.000000, actualArea);
         }
@@ -25,9 +25,9 @@ namespace PrimitiveTypes
             Point B = new Point(2.000000, 2.000000);
             Point C = new Point(5.000000, 6.000000);
 
-            double actualArea = ComputeArea(A, B, C);
+            double actualArea = ComputeMinimumArea(A, B, C);
 
-            Assert.AreEqual(7.000000 / 2.000000, actualArea);
+            Assert.AreEqual(7.000000, actualArea);
         }
 
         [TestMethod]
@@ -37,14 +37,14 @@ namespace PrimitiveTypes
             Point B = new Point(2.000000, 3.000000);
             Point C = new Point(-3.000000, -2.000000);
 
-            double actualArea = ComputeArea(A, B, C);
+            double actualArea = ComputeMinimumArea(A, B, C);
 
             Assert.AreEqual(0.000000, actualArea);
         }
 
-        private double ComputeArea(Point A, Point B, Point C) {
+        private double ComputeMinimumArea(Point A, Point B, Point C) {
             double determinant = ComputeDeterminant(A, B, C);
-            return determinant / 2;
+            return determinant;
         }
 
         private double ComputeDeterminant(Point A, Point B, Point C) {
