@@ -8,25 +8,30 @@ namespace PrimitiveTypes
     {
         [TestMethod]
         [TestCategory("04_Bank_Loan_With_Descending_Interest")]
-        public void Compute_Rate_For_First_Month() {
+        public void Compute_For_3rd_Month_Of_4th_Year() {
+            Credit credit = new Credit(40000, 7.57, 240);
 
-            int paymentMonth = 10;
-            Credit credit = new Credit(20000, 60, 16.04);
+            decimal payment = credit.GetPaymentForMonth(51);
 
-
-            decimal payment = GetPaymentForMonth(credit, paymentMonth);
-
-            Assert.AreEqual("560.567", payment.ToString("#.###"));
+            Assert.AreEqual("366.43", payment.ToString("#.##"));
         }
 
-        private decimal GetPaymentForMonth(Credit credit, int paymentMonth) {
-            decimal interest = GetIntrestForMonth(credit, paymentMonth);
-            return credit.Principal + interest;
+        [TestMethod]
+        [TestCategory("04_Bank_Loan_With_Descending_Interest")]
+        public void Get_Credit_Term_In_Months() {
+
+            Credit credit = new Credit(40000, 7.57, 240);
+
+            Assert.AreEqual(240, credit.TermInMonths);
         }
 
-        private decimal GetIntrestForMonth(Credit credit, int paymentMonth) {
-            decimal balance = credit.GetBalance(paymentMonth);
-            return balance * (decimal)(credit.Interest /100) / 12;
+        [TestMethod]
+        [TestCategory("04_Bank_Loan_With_Descending_Interest")]
+        public void Get_Credit_Amount() {
+
+            Credit credit = new Credit(40000, 7.57, 240);
+
+            Assert.AreEqual(40000, credit.Amount);
         }
     }
 
@@ -36,12 +41,12 @@ namespace PrimitiveTypes
         private int termInMonths;
         private double yearlyInterest;
         private decimal principal;
+        private const int MONTHS_IN_YEAR = 12;
 
-        public Credit(decimal amount, int termInMonths, double yearlyInterestInPercent) {
+        public Credit(decimal amount, double yearlyInterestInPercent, int termInMonths) {
             this.amount = amount;
             this.termInMonths = termInMonths;
             this.yearlyInterest = yearlyInterestInPercent;
-
             this.principal = ComputePrincipal(amount);
         }
 
@@ -61,12 +66,21 @@ namespace PrimitiveTypes
             get { return this.termInMonths; }
         }
 
-        public decimal Principal {
+        private decimal Principal {
             get { return this.principal; }
         }
 
         public decimal GetBalance(int paymentMonth) {
             return this.amount - (paymentMonth - 1) * this.principal;
+        }
+
+        public decimal GetPaymentForMonth(int paymentMonth) {
+            return this.Principal + GetIntrestForMonth(paymentMonth);
+        }
+
+        public decimal GetIntrestForMonth(int paymentMonth) {
+            decimal balance = this.GetBalance(paymentMonth);
+            return balance * (decimal)(this.Interest / 100) / MONTHS_IN_YEAR;
         }
     }
 }
