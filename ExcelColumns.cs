@@ -9,7 +9,7 @@ namespace PrimitiveTypes
         // Solution taken from http://stackoverflow.com/questions/181596/how-to-convert-a-column-number-eg-127-into-an-excel-column-eg-aa
 
         [TestMethod]
-        [TestCategory("02_ExcelColumns")]
+        [TestCategory("02_Excel_Columns")]
         public void Column_Combination_If_Less_Than_27 () {
             int columnNumber = 2;
 
@@ -19,7 +19,7 @@ namespace PrimitiveTypes
         }
 
         [TestMethod]
-        [TestCategory("02_ExcelColumns")]
+        [TestCategory("02_Excel_Columns")]
         public void Column_Combination_If_Equal_To_27() {
             int columnNumber = 27;
 
@@ -29,7 +29,7 @@ namespace PrimitiveTypes
         }
 
         [TestMethod]
-        [TestCategory("02_ExcelColumns")]
+        [TestCategory("02_Excel_Columns")]
         public void Column_Combination_If_Equal_To_52() {
             int columnNumber = 52;
 
@@ -39,7 +39,7 @@ namespace PrimitiveTypes
         }
 
         [TestMethod]
-        [TestCategory("02_ExcelColumns")]
+        [TestCategory("02_Excel_Columns")]
         public void Column_Combination_If_Equal_To_53() {
             int columnNumber = 53;
 
@@ -49,7 +49,7 @@ namespace PrimitiveTypes
         }
 
         [TestMethod]
-        [TestCategory("02_ExcelColumns")]
+        [TestCategory("02_Excel_Columns")]
         public void Column_Combination_If_Equal_To_16384() {
             int columnNumber = 16384;
 

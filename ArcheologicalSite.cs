@@ -7,7 +7,7 @@ namespace PrimitiveTypes
     public class ArcheologicalSite
     {
         [TestMethod]
-        [TestCategory("03_ArcheologicalSite")]
+        [TestCategory("03_Archeological_Site")]
         public void Compute_Building_Area_For_Given_Coordinates() {
             Point A = new Point(0.000000, 0.000000);
             Point B = new Point(1.000000, 1.000000);
@@ -19,7 +19,7 @@ namespace PrimitiveTypes
         }
 
         [TestMethod]
-        [TestCategory("03_ArcheologicalSite")]
+        [TestCategory("03_Archeological_Site")]
         public void Compute_Building_Area_For_Given_Coordinates_2() {
             Point A = new Point(6.000000, 5.000000);
             Point B = new Point(2.000000, 2.000000);
@@ -31,7 +31,7 @@ namespace PrimitiveTypes
         }
 
         [TestMethod]
-        [TestCategory("03_ArcheologicalSite")]
+        [TestCategory("03_Archeological_Site")]
         public void Compute_Building_Area_For_Coordinates_On_The_Same_Line() {
             Point A = new Point(1.000000, 2.000000);
             Point B = new Point(2.000000, 3.000000);

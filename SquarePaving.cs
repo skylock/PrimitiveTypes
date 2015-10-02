@@ -7,7 +7,7 @@ namespace PrimitiveTypes
     public class SquarePaving
     {
         [TestMethod]
-        [TestCategory("01_SquarePaving")]
+        [TestCategory("01_Square_Paving")]
         public void Compute_Bricks_Needed_When_BrickSide_Is_Bigger_Than_Field_Length_Or_With() {
             int fieldLength = 3;
             int fieldWidth = 6;
@@ -20,7 +20,7 @@ namespace PrimitiveTypes
         }
 
         [TestMethod]
-        [TestCategory("01_SquarePaving")]
+        [TestCategory("01_Square_Paving")]
         public void Compute_Bricks_Needed_When_BrickSide_Is_Bigger_Than_Field_Length() {
             int fieldLength = 3;
             int fieldWidth = 6;
@@ -33,7 +33,7 @@ namespace PrimitiveTypes
         }
 
         [TestMethod]
-        [TestCategory("01_SquarePaving")]
+        [TestCategory("01_Square_Paving")]
         public void Compute_Bricks_Needed_When_BrickSide_Is_Smaller_Than_Field_Length_Or_Width() {
             int fieldLength = 6;
             int fieldWidth = 6;
@@ -46,7 +46,7 @@ namespace PrimitiveTypes
         }
 
         [TestMethod]
-        [TestCategory("01_SquarePaving")]
+        [TestCategory("01_Square_Paving")]
         public void Compute_Bricks_Needed_When_BrickSide_Is_Exact_Multiple_For_Field_Length_Or_Width() {
             int fieldLength = 8;
             int fieldWidth = 8;
@@ -59,7 +59,7 @@ namespace PrimitiveTypes
         }
 
         [TestMethod]
-        [TestCategory("01_SquarePaving")]
+        [TestCategory("01_Square_Paving")]
         public void Compute_Bricks_Needed_When_BrickSide_Is_Zero() {
             int fieldLength = 3;
             int fieldWidth = 6;
@@ -72,7 +72,7 @@ namespace PrimitiveTypes
         }
 
         [TestMethod]
-        [TestCategory("01_SquarePaving")]
+        [TestCategory("01_Square_Paving")]
         public void Compute_Bricks_Needed_When_FieldLength_Is_Zero() {
             int fieldLength = 0;
             int fieldWidth = 6;
@@ -85,7 +85,7 @@ namespace PrimitiveTypes
         }
 
         [TestMethod]
-        [TestCategory("01_SquarePaving")]
+        [TestCategory("01_Square_Paving")]
         public void Compute_Bricks_Needed_When_FieldWidth_Is_Zero() {
             int fieldLength = 0;
             int fieldWidth = 0;
@@ -98,7 +98,7 @@ namespace PrimitiveTypes
         }
 
         [TestMethod]
-        [TestCategory("01_SquarePaving")]
+        [TestCategory("01_Square_Paving")]
         public void Compute_Bricks_Needed_When_All_Input_Values_Are_Zero() {
             int fieldLength = 0;
             int fieldWidth = 0;
@@ -111,7 +111,7 @@ namespace PrimitiveTypes
         }
 
         [TestMethod]
-        [TestCategory("01_SquarePaving")]
+        [TestCategory("01_Square_Paving")]
         public void Compute_Bricks_Needed_When_All_Input_Values_Are_Negative() {
             int fieldLength = -1;
             int fieldWidth = -1;
