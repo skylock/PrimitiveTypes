@@ -58,6 +58,7 @@
     <Compile Include="SquarePaving.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BankLoan.cs" />
+    <Compile Include="BirdDistance.cs" />
     <Compile Include="Watermelon.cs" />
   </ItemGroup>
   <Choose>
