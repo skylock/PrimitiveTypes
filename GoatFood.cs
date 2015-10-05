@@ -8,12 +8,24 @@ namespace PrimitiveTypes
     {
         [TestMethod]
         [TestCategory("08_Goat_Food")]
-        public void Compute_Food_Needed_For_Zero_Days() {
-            int rDays = 0;
-            int rGoats = 4;
-            int rNeededHayInKg = 8;
+        public void Compute_Food_Needed_For_Tim_Data() {
+            double rDays = 2;
+            double rGoats = 4;
+            double rNeededHayInKg = 8;
 
-            int neededHayInKg = ComputeNeededHayInKg(rDays, rGoats, rNeededHayInKg, 1, 2);
+            double neededHayInKg = ComputeNeededHayInKg(rDays, rGoats, rNeededHayInKg, 1, 2);
+
+            Assert.AreEqual(2, neededHayInKg);
+        }
+
+        [TestMethod]
+        [TestCategory("08_Goat_Food")]
+        public void Compute_Food_Needed_For_Zero_Days() {
+            double rDays = 0;
+            double rGoats = 4;
+            double rNeededHayInKg = 8;
+
+            double neededHayInKg = ComputeNeededHayInKg(rDays, rGoats, rNeededHayInKg, 1, 2);
 
             Assert.AreEqual(0, neededHayInKg);
         }
@@ -21,11 +33,11 @@ namespace PrimitiveTypes
         [TestMethod]
         [TestCategory("08_Goat_Food")]
         public void Compute_Food_Needed_For_Zero_Goats() {
-            int rDays = 2;
-            int rGoats = 0;
-            int rNeededHayInKg = 8;
+            double rDays = 2;
+            double rGoats = 0;
+            double rNeededHayInKg = 8;
 
-            int neededHayInKg = ComputeNeededHayInKg(rDays, rGoats, rNeededHayInKg, 1, 2);
+            double neededHayInKg = ComputeNeededHayInKg(rDays, rGoats, rNeededHayInKg, 1, 2);
 
             Assert.AreEqual(0, neededHayInKg);
         }
@@ -33,17 +45,17 @@ namespace PrimitiveTypes
         [TestMethod]
         [TestCategory("08_Goat_Food")]
         public void Compute_Food_Needed_For_Goats_When_All_Values_More_Than_Zero() {
-            int rDays = 2;
-            int rGoats = 4;
-            int rNeededHayInKg = 8;
+            double rDays = 2;
+            double rGoats = 4;
+            double rNeededHayInKg = 8;
 
-            int neededHayInKg = ComputeNeededHayInKg(rDays, rGoats, rNeededHayInKg, 1, 2);
+            double neededHayInKg = ComputeNeededHayInKg(rDays, rGoats, rNeededHayInKg, 1, 2);
 
-            Assert.AreEqual(4, neededHayInKg);
+            Assert.AreEqual(2, neededHayInKg);
         }
 
-        private int ComputeNeededHayInKg(int rDays, int rGoats, int rNeededHayInKg, int days, int goats) {
-            return rGoats > 0 && rDays > 0 ? (days * rGoats * rNeededHayInKg) / (rDays * rGoats) : 0;
+        private double ComputeNeededHayInKg(double rDays, double rGoats, double rNeededHayInKg, double days, double goats) {
+            return rGoats > 0 && rDays > 0 ? (days * goats * rNeededHayInKg) / (rDays * rGoats) : 0;
         }
     }
 }
