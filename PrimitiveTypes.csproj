@@ -60,6 +60,7 @@
     <Compile Include="BankLoan.cs" />
     <Compile Include="BirdDistance.cs" />
     <Compile Include="GoatFood.cs" />
+    <Compile Include="Mushrooms.cs" />
     <Compile Include="Watermelon.cs" />
   </ItemGroup>
   <Choose>
