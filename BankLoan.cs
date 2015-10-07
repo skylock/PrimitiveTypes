@@ -8,13 +8,43 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
     {
         [TestMethod]
         [TestCategory("04_Bank_Loan_With_Descending_Interest")]
+        public void Compute_For_Less_Than_A_Months() {
+            Credit credit = new Credit(40000, 7.57, 0);
+
+            decimal payment = credit.GetPaymentForMonth(0);
+
+            Assert.AreEqual(40000, (double)Decimal.Round(payment, 2));
+        }
+
+        [TestMethod]
+        [TestCategory("04_Bank_Loan_With_Descending_Interest")]
+        public void Compute_For_Zero_Interest() {
+            Credit credit = new Credit(40000, 0, 240);
+
+            decimal payment = credit.GetPaymentForMonth(51);
+
+            Assert.AreEqual(166.67, (double)Decimal.Round(payment, 2));
+        }
+
+        [TestMethod]
+        [TestCategory("04_Bank_Loan_With_Descending_Interest")]
+        public void Compute_For_Zero_Credit() {
+            Credit credit = new Credit(0, 7.57, 240);
+
+            decimal payment = credit.GetPaymentForMonth(51);
+
+            Assert.AreEqual(0, (double)Decimal.Round(payment, 2));
+        }
+
+        [TestMethod]
+        [TestCategory("04_Bank_Loan_With_Descending_Interest")]
         public void Compute_For_3rd_Month_Of_4th_Year() 
         {
             Credit credit = new Credit(40000, 7.57, 240);
 
             decimal payment = credit.GetPaymentForMonth(51);
 
-            Assert.AreEqual("366.43", payment.ToString("#.##"));
+            Assert.AreEqual(366.43, (double)Decimal.Round(payment, 2));
         }
 
         [TestMethod]
@@ -78,7 +108,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
         public decimal GetPaymentForMonth(int paymentMonth) 
         {
-            return this.Principal + this.GetIntrestForMonth(paymentMonth);
+            return paymentMonth > 0 ? this.Principal + this.GetIntrestForMonth(paymentMonth) : this.amount;
         }
 
         public decimal GetIntrestForMonth(int paymentMonth) 
@@ -89,7 +119,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
         private decimal ComputePrincipal(decimal toalAmount) 
         {
-            return this.amount / this.termInMonths;
+            return this.termInMonths > 0 ? this.amount / this.termInMonths : 0;
         }
     }
     }
