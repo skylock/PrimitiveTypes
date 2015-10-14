@@ -91,6 +91,19 @@ namespace PrimitiveTypes
             Assert.AreEqual<uint>(100, neededBoards);
         }
 
+        [TestMethod]
+        [TestCategory("10_Wooden_Floor")]
+        public void Compute_Boards_Needed_When_BoardSide_Is_Not_Exact_Multiple_For_Floor_Length_Or_Width() {
+
+            Size boardSize = new Size(300, 700);
+            Size roomSize = new Size(3100, 7100);
+            uint lossesPercentage = 15;
+
+            uint neededBoards = ComputeNeededBoards(roomSize, boardSize, lossesPercentage);
+
+            Assert.AreEqual<uint>(139, neededBoards);
+        }
+
 
         private uint ComputeNeededBoards(Size roomSize, Size boardSize, uint lossesPercentage) {
             uint boards = GetNeededBoards(roomSize, boardSize);
