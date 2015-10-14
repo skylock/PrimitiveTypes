@@ -6,8 +6,6 @@ namespace PrimitiveTypes
     [TestClass]
     public class WoodenFloor
     {
-        public bool lossesExist = false;
-
         [TestMethod]
         [TestCategory("10_Wooden_Floor")]
         public void Compute_Boards_Needed_When_Ll_Input_Values_Are_Zero()
@@ -88,7 +86,7 @@ namespace PrimitiveTypes
 
             uint neededBoards = ComputeNeededBoards(roomSize, boardSize, lossesPercentage);
 
-            Assert.AreEqual<uint>(100, neededBoards);
+            Assert.AreEqual<uint>(115, neededBoards);
         }
 
         [TestMethod]
@@ -112,7 +110,6 @@ namespace PrimitiveTypes
         }
 
         private uint GetLosses(uint boards, uint lossesPercentage) {
-            if (!lossesExist) return 0;
             return (uint)(boards * (lossesPercentage / 100.0));
         }
 
@@ -127,20 +124,18 @@ namespace PrimitiveTypes
         private uint GetNeededBoardsOnSide(uint sideSize, uint boardSide) {
             if (sideSize < boardSide && sideSize > 0) {
                 return 1;
-            } else {
-                if (sideSize == 0) {
+            } 
+            if (sideSize == 0) {
                     return 0;
-                } else if (boardSide > 0) {
-                    if (sideSize % boardSide == 0) {
-                        return sideSize / boardSide;
-                    } else {
-                        lossesExist = true;
-                        return (sideSize / boardSide) + 1;
-                    }
+                } 
+            if (boardSide > 0) {
+                if (sideSize % boardSide == 0) {
+                    return sideSize / boardSide;
                 } else {
-                    return 0;
+                    return (sideSize / boardSide) + 1;
                 }
-            }
+            } 
+            return 0;
         }
     }
 
