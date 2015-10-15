@@ -12,41 +12,24 @@ namespace PrimitiveTypes
         public void Test_Encription_When_Message_Is_Not_Empty() {
             int key = 4;
             string message = "nicaieri nu e ca acasa";
-            char [,] expectedMessage = new char [,]
-            {
-                {'n', 'e', 'e', 'a'},
-                {'i', 'r', 'c', 's'},
-                {'c', 'i', 'a', 'a'},
-                {'a', 'n', 'a', 'j'},
-                {'i', 'u', 'c', 'w'}
-            };
+            string expectedMessage = "neeaircsciaaanajiucw";
 
-            char[,] actualMessage = EncryptMessage(message, key);
+            string actualMessage = EncryptMessage(message, key);
 
-            CollectionAssert.AreEqual(expectedMessage, actualMessage);
+            Assert.AreEqual(expectedMessage, actualMessage);
         }
 
-        private char[,] EncryptMessage(string message, int columns) {
+        private string EncryptMessage(string message, int columns) {
             Random rgen = new Random(7);
             int rows = message.Length / columns;
-            string cleanedString = CleanString(message);
-            char[,] encryptedMessage = new char[rows, columns];
-            int charIndex = 0;
-            for (int i = 0; i < columns; i++)
-            {
-                for(int j = 0; j < rows; j++)
-                {
-                    if (charIndex < cleanedString.Length) {
-                        encryptedMessage[j, i] = cleanedString[charIndex];
-                    } 
-                    else {
-                        char ch = GetRandomChar(rgen);
-                        encryptedMessage[j, i] = ch;
-                    }
-                    charIndex++;
+            char[] cleanedString = CleanString(message).ToCharArray();
+            char[] encryptedMessage = new char[rows * columns];
+            for (int i = 0; i < encryptedMessage.Length; i++) {
+                if (i * rows < cleanedString.Length) {
+                    encryptedMessage[i] = cleanedString[i * rows];
                 }
             }
-            return encryptedMessage;
+            return string.Empty;
         }
 
         private char GetRandomChar(Random rgen) {
