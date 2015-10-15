@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Text.RegularExpressions;
 
 namespace PrimitiveTypes
 {
@@ -11,34 +12,51 @@ namespace PrimitiveTypes
         public void Test_Encription_When_Message_Is_Not_Empty() {
             int key = 4;
             string message = "nicaieri nu e ca acasa";
-            string [,] expectedMessage = new string [,]
+            char [,] expectedMessage = new char [,]
             {
-                {"n", "e", "e", "a"},
-                {"i", "r", "c", "s"},
-                {"c", "i", "a", "a"},
-                {"a", "n", "a", "x"},
-                {"i", "u", "c", "w"}
+                {'n', 'e', 'e', 'a'},
+                {'i', 'r', 'c', 's'},
+                {'c', 'i', 'a', 'a'},
+                {'a', 'n', 'a', 'j'},
+                {'i', 'u', 'c', 'w'}
             };
 
-            string actualMessage = EncryptMessage(message, key);
+            char[,] actualMessage = EncryptMessage(message, key);
 
-            Assert.AreEqual(expectedMessage, actualMessage);
+            CollectionAssert.AreEqual(expectedMessage, actualMessage);
         }
 
-        private string EncryptMessage(string message, int columns) {
+        private char[,] EncryptMessage(string message, int columns) {
+            Random rgen = new Random(7);
             int rows = message.Length / columns;
+            string cleanedString = CleanString(message);
             char[,] encryptedMessage = new char[rows, columns];
             int charIndex = 0;
             for (int i = 0; i < columns; i++)
             {
                 for(int j = 0; j < rows; j++)
                 {
-                    char ch = message[charIndex];
-                    encryptedMessage[j, i] = ch;
+                    if (charIndex < cleanedString.Length) {
+                        encryptedMessage[j, i] = cleanedString[charIndex];
+                    } 
+                    else {
+                        char ch = GetRandomChar(rgen);
+                        encryptedMessage[j, i] = ch;
+                    }
                     charIndex++;
                 }
             }
-            return string.Empty;
+            return encryptedMessage;
+        }
+
+        private char GetRandomChar(Random rgen) {
+            int rChar = rgen.Next(0, 26);
+            return (char)('a' + rChar);
+        }
+
+        private string CleanString(string message) {
+            Regex rgx = new Regex("[^a-zA-Z-]");
+            return rgx.Replace(message, "");
         }
     }
 }
