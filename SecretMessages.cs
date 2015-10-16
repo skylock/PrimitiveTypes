@@ -22,19 +22,18 @@ namespace PrimitiveTypes
 
         private string EncryptMessage(string message, int columns) {
             Random rgen = new Random(7);
-            char[] cleanedString = CleanString(message).ToCharArray();
-            int rows = (int)Math.Ceiling((double)cleanedString.Length / columns);
+            char[] cleanStr = CleanString(message).ToCharArray();
+            int rows = (int)Math.Ceiling((double)cleanStr.Length / columns);
             char[] encryptedMessage = new char[rows * columns];
-            int i = 0;
-            int k = 0;
-            int ci = 0;
-            while (ci < cleanedString.Length) {
-                for (i = k; i < encryptedMessage.Length; i += columns) {
-                    char value = ci >= cleanedString.Length ? GetRandomChar(rgen) : cleanedString[ci];
+            int startIndex = 0;
+            int iterator = 0;
+            while (iterator < cleanStr.Length) {
+                for (int i = startIndex; i < encryptedMessage.Length; i += columns) {
+                    char value = iterator >= cleanStr.Length ? GetRandomChar(rgen) : cleanStr[iterator];
                     encryptedMessage[i] = value;
-                    ci++;
+                    iterator++;
                 }
-                k++;
+                startIndex++;
             }
             string result = new string(encryptedMessage);
             return result;
