@@ -20,16 +20,35 @@ namespace PrimitiveTypes
         }
 
         private string EncryptMessage(string message, int columns) {
-            Random rgen = new Random(7);
-            int rows = message.Length / columns;
-            char[] cleanedString = CleanString(message).ToCharArray();
-            char[] encryptedMessage = new char[rows * columns];
-            for (int i = 0; i < encryptedMessage.Length; i++) {
-                if (i * rows < cleanedString.Length) {
-                    encryptedMessage[i] = cleanedString[i * rows];
-                }
+            string cleandStr = CleanString(message);
+            int rows = GetRows(cleandStr, columns);
+            int length = (rows * columns) - cleandStr.Length;
+            string preparedStr = cleandStr + GetRandomStr(length);
+            string [] matrix = CreateSubstrings(preparedStr, columns);
+                return string.Empty;
+        }
+
+        private static int GetRows(string cleandStr, int columns) {
+            int rows = (int)Math.Ceiling((double)cleandStr.Length / columns);
+            return rows;
+        }
+
+        private string[] CreateSubstrings(string preparedStr, int size) {
+            int rows = preparedStr.Length / size;
+            string[] subStrings = new string[size];
+            for (int i = 0; i < subStrings.Length; i++) {
+                subStrings[i] = preparedStr.Substring(i * rows, rows);
             }
-            return string.Empty;
+            return subStrings;
+        }
+
+        private string GetRandomStr(int length) {
+            Random rgen = new Random(7);
+            char[] randomStr = new char[length];
+            for (int i = 0; i < randomStr.Length; i++ ) {
+                randomStr[i] = GetRandomChar(rgen);
+            }
+            return new string(randomStr);
         }
 
         private char GetRandomChar(Random rgen) {
