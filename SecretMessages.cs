@@ -25,7 +25,20 @@ namespace PrimitiveTypes
             int length = (rows * columns) - cleandStr.Length;
             string preparedStr = cleandStr + GetRandomStr(length);
             string [] matrix = CreateSubstrings(preparedStr, columns);
-                return string.Empty;
+            string[] columnToRow = new string[rows];
+            for (int i = 0; i <= columns; i++) {
+                columnToRow[i] = ReadMatrixColumn(matrix, i);
+            }
+            string encryptedStr = string.Join("",columnToRow);
+            return encryptedStr;
+        }
+
+        private string ReadMatrixColumn(string[] matrix, int column) {
+            char[] result = new char[matrix.Length];
+            for (int i = 0; i < matrix.Length; i++) {
+                result[i] = matrix[i][column];
+            }
+            return new string(result);
         }
 
         private static int GetRows(string cleandStr, int columns) {
