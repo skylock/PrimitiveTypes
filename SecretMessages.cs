@@ -10,7 +10,7 @@ namespace PrimitiveTypes
         [TestMethod]
         [TestCategory("12_Secret_Messages")]
         [ExpectedException(typeof(ArgumentException))]
-        public void Encrypt_With_Key_0_When_Message_Is_Not_Empty() {
+        public void Encrypt_Message_When_Key_0() {
             uint key = 0;
             string message = "nicaieri nu e ca acasa";
 
@@ -19,7 +19,7 @@ namespace PrimitiveTypes
 
         [TestMethod]
         [TestCategory("12_Secret_Messages")]
-        public void Encrypt_With_Key_1_When_Message_Is_Not_Empty() {
+        public void Encrypt_Message_When_Key_1() {
             uint key = 1;
             string message = "nicaieri nu e ca acasa";
             string expectedMessage = "nicaierinuecaacasa";
@@ -31,7 +31,7 @@ namespace PrimitiveTypes
 
         [TestMethod]
         [TestCategory("12_Secret_Messages")]
-        public void Encrypt_With_Key_5_When_Message_Is_Not_Empty() {
+        public void Encrypt_Message_When_Key_5() {
             uint key = 5;
             string message = "nicaieri nu e ca acasa";
             string expectedMessage = "ninasieuaacrecjaicaw";
@@ -43,10 +43,22 @@ namespace PrimitiveTypes
 
         [TestMethod]
         [TestCategory("12_Secret_Messages")]
-        public void Encrypt_With_Key_4_When_Message_Is_Not_Empty() {
+        public void Encrypt_Message_When_Key_4() {
             uint key = 4;
             string message = "nicaieri nu e ca acasa";
             string expectedMessage = "neeaircsciaaanajiucw";
+
+            string actualMessage = EncryptMessage(message, key);
+
+            Assert.AreEqual(expectedMessage, actualMessage);
+        }
+
+        [TestMethod]
+        [TestCategory("12_Secret_Messages")]
+        public void Encrypt_Message_When_Key_Has_Same_Length_With_Message() {
+            uint key = 20;
+            string message = "nicaieri nu e ca acasa";
+            string expectedMessage = "nicaierinuecaacasa";
 
             string actualMessage = EncryptMessage(message, key);
 
