@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="ArcheologicalSite.cs" />
     <Compile Include="Athlete.cs" />
+    <Compile Include="BaseConversion.cs" />
     <Compile Include="ExcelColumns.cs" />
     <Compile Include="SquarePaving.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
