@@ -105,7 +105,7 @@ namespace PrimitiveTypes
         }
 
         private string EncryptMessage(string message, uint columns) {
-            Random rgen = new Random(7);
+            Random generator = new Random(7);
             string cleanStr = CleanString(message);
             ValidateInput(cleanStr, columns);
             int strLength = GetStrLength(columns, cleanStr);
@@ -114,7 +114,7 @@ namespace PrimitiveTypes
             int currentIndex = 0;
             while (currentIndex < encryptedMessage.Length) {
                 for (uint i = startIndex; i < encryptedMessage.Length; i += columns) {
-                    encryptedMessage[i] = GetCharValue(cleanStr, currentIndex, rgen);
+                    encryptedMessage[i] = GetCharValue(cleanStr, currentIndex, generator);
                     currentIndex++;
                 }
                 startIndex++;
@@ -123,12 +123,12 @@ namespace PrimitiveTypes
         }
 
         private string CleanString(string message) {
-            Regex rgx = new Regex("[^a-zA-Z-]");
-            return rgx.Replace(message, "");
+            Regex regex = new Regex("[^a-zA-Z-]");
+            return regex.Replace(message, "");
         }
 
-        private char GetCharValue(string cleanStr, int index, Random rgen) {
-            return index >= cleanStr.Length ? GetRandomChar(rgen) : cleanStr[index];
+        private char GetCharValue(string cleanStr, int index, Random generator) {
+            return index >= cleanStr.Length ? GetRandomChar(generator) : cleanStr[index];
         }
 
         private char GetRandomChar(Random rgen) {
@@ -136,9 +136,9 @@ namespace PrimitiveTypes
             return (char)('a' + rChar);
         }
 
-        private static int GetStrLength(uint columns, string cleanStr) {
-            int rows = (int)Math.Ceiling((double)cleanStr.Length / columns);
-            return (int)(rows *columns);
+        private static int GetStrLength(uint columns, string input) {
+            int rows = (int)Math.Ceiling((double)input.Length / columns);
+            return (int)(rows * columns);
         }
 
         private static void ValidateInput(string message, uint columns) {
