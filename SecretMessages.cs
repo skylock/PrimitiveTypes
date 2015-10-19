@@ -29,12 +29,24 @@ namespace PrimitiveTypes
 
         [TestMethod]
         [TestCategory("12_Secret_Messages")]
-        public void Encrypt_Message_When_Key_5() {
-            uint key = 5;
+        public void Encrypt_Message_When_Key_2() {
+            uint key = 2;
             string message = "nicaieri nu e ca acasa";
-            string expectedMessage = "ninasieuaacrecjaicaw";
+            string expectedMessage = "nuieccaaiaecraisna";
 
             string actualMessage = EncryptMessage(message, key);
+
+            Assert.AreEqual(expectedMessage, actualMessage);
+        }
+
+        [TestMethod]
+        [TestCategory("12_Secret_Messages")]
+        public void Decrypt_Message_When_Key_2() {
+            uint key = 2;
+            string message = "nuieccaaiaecraisna";
+            string expectedMessage = "nicaierinuecaacasa";
+
+            string actualMessage = DecryptMessage(message, key);
 
             Assert.AreEqual(expectedMessage, actualMessage);
         }
@@ -53,10 +65,22 @@ namespace PrimitiveTypes
 
         [TestMethod]
         [TestCategory("12_Secret_Messages")]
-        public void Encrypt_Message_When_Key_Is_On_Char_Less_Than_Message() {
-            uint key = 17;
+        public void Decrypt_Message_When_Key_4() {
+            uint key = 4;
+            string message = "neeaircsciaaanajiucw";
+            string expectedMessage = "nicaierinuecaacasajw";
+
+            string actualMessage = DecryptMessage(message, key);
+
+            Assert.AreEqual(expectedMessage, actualMessage);
+        }
+
+        [TestMethod]
+        [TestCategory("12_Secret_Messages")]
+        public void Encrypt_Message_When_Key_5() {
+            uint key = 5;
             string message = "nicaieri nu e ca acasa";
-            string expectedMessage = "ncirneacsjrjbvllwiaeiucaaawbrywyck";
+            string expectedMessage = "ninasieuaacrecjaicaw";
 
             string actualMessage = EncryptMessage(message, key);
 
@@ -65,12 +89,12 @@ namespace PrimitiveTypes
 
         [TestMethod]
         [TestCategory("12_Secret_Messages")]
-        public void Decrypt_Message_When_Key_4() {
-            uint key = 4;
-            string message = "neeaircsciaaanajiucw";
-            string expectedMessage = "nicaierinuecaacasajw";
+        public void Encrypt_Message_When_Key_Is_On_Char_Less_Than_Message() {
+            uint key = 17;
+            string message = "nicaieri nu e ca acasa";
+            string expectedMessage = "ncirneacsjrjbvllwiaeiucaaawbrywyck";
 
-            string actualMessage = DecryptMessage(message, key);
+            string actualMessage = EncryptMessage(message, key);
 
             Assert.AreEqual(expectedMessage, actualMessage);
         }
