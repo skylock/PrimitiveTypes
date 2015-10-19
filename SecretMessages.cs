@@ -63,6 +63,35 @@ namespace PrimitiveTypes
             Assert.AreEqual(expectedMessage, actualMessage);
         }
 
+        [TestMethod]
+        [TestCategory("12_Secret_Messages")]
+        public void Decrypt_Message_When_Key_4() {
+            uint key = 4;
+            string message = "neeaircsciaaanajiucw";
+            string expectedMessage = "nicaierinuecaacasajw";
+
+            string actualMessage = DecryptMessage(message, key);
+
+            Assert.AreEqual(expectedMessage, actualMessage);
+        }
+
+        private string DecryptMessage(string message, uint columns) {
+            uint rows = (uint)message.Length / columns;
+            char[] decryptedMessage = new char[rows * columns];
+            uint startIndex = 0;
+            int iterator = 0;
+            while (iterator < rows * columns) {
+                for (uint i = startIndex; i < decryptedMessage.Length; i += rows) {
+                    char value = iterator >= message.Length ? '\0' : message[iterator];
+                    decryptedMessage[i] = value;
+                    iterator++;
+                }
+                startIndex++;
+            }
+            string result = new string(decryptedMessage);
+            return result;
+        }
+
         private string EncryptMessage(string message, uint columns) {
             char[] cleanStr = CleanString(message).ToCharArray();
             ValidateInput(cleanStr.Length, columns);
