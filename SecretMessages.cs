@@ -105,30 +105,30 @@ namespace PrimitiveTypes
         }
 
         private string EncryptMessage(string message, uint columns) {
-            char[] cleanStr = CleanString(message).ToCharArray();
-            ValidateInput(cleanStr.Length, columns);
             Random rgen = new Random(7);
-            int rows = (int)Math.Ceiling((double)cleanStr.Length / columns);
-            char[] encryptedMessage = new char[rows * columns];
+            string cleanStr = CleanString(message);
+            ValidateInput(cleanStr, columns);
+            int strLength = GetStrLength(columns, cleanStr);
+            char[] encryptedMessage = new char[strLength];
             uint startIndex = 0;
-            int iterator = 0;
-            while (iterator < rows * columns) {
+            int currentIndex = 0;
+            while (currentIndex < encryptedMessage.Length) {
                 for (uint i = startIndex; i < encryptedMessage.Length; i += columns) {
-                    char value = iterator >= cleanStr.Length ? GetRandomChar(rgen) : cleanStr[iterator];
-                    encryptedMessage[i] = value;
-                    iterator++;
+                    encryptedMessage[i] = GetCharValue(cleanStr, currentIndex, rgen);
+                    currentIndex++;
                 }
                 startIndex++;
             }
-            string result = new string(encryptedMessage);
-            return result;
+            return new string(encryptedMessage);
         }
 
-        private static void ValidateInput(int messageLength, uint columns) {
-            if (columns < 2 || columns >= messageLength) {
-                string exceptionMessage = string.Format("Columns parameter must be grater than zero and less than {0}.", messageLength);
-                throw new ArgumentException(exceptionMessage);
-            }
+        private string CleanString(string message) {
+            Regex rgx = new Regex("[^a-zA-Z-]");
+            return rgx.Replace(message, "");
+        }
+
+        private char GetCharValue(string cleanStr, int index, Random rgen) {
+            return index >= cleanStr.Length ? GetRandomChar(rgen) : cleanStr[index];
         }
 
         private char GetRandomChar(Random rgen) {
@@ -136,9 +136,16 @@ namespace PrimitiveTypes
             return (char)('a' + rChar);
         }
 
-        private string CleanString(string message) {
-            Regex rgx = new Regex("[^a-zA-Z-]");
-            return rgx.Replace(message, "");
+        private static int GetStrLength(uint columns, string cleanStr) {
+            int rows = (int)Math.Ceiling((double)cleanStr.Length / columns);
+            return (int)(rows *columns);
+        }
+
+        private static void ValidateInput(string message, uint columns) {
+            if (columns < 2 || columns >= message.Length) {
+                string exceptionMessage = string.Format("Columns parameter must be grater than zero and less than {0}.", message.Length);
+                throw new ArgumentException(exceptionMessage);
+            }
         }
     }
 }
