@@ -101,19 +101,7 @@ namespace PrimitiveTypes
 
         private string DecryptMessage(string message, uint columns) {
             uint rows = (uint)message.Length / columns;
-            char[] decryptedMessage = new char[rows * columns];
-            uint startIndex = 0;
-            int iterator = 0;
-            while (iterator < rows * columns) {
-                for (uint i = startIndex; i < decryptedMessage.Length; i += rows) {
-                    char value = iterator >= message.Length ? '\0' : message[iterator];
-                    decryptedMessage[i] = value;
-                    iterator++;
-                }
-                startIndex++;
-            }
-            string result = new string(decryptedMessage);
-            return result;
+            return EncryptMessage(message, rows);
         }
 
         private string EncryptMessage(string message, uint columns) {
