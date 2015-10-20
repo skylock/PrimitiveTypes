@@ -39,7 +39,7 @@ namespace PrimitiveTypes
         {
             string binaryString = Convert.ToString(172, 2);
 
-            double result = ConvertToBase10(binaryString, 2);
+            double result = ConvertFromBase(binaryString, 2);
 
             Assert.AreEqual(172, result);
         }
@@ -50,7 +50,7 @@ namespace PrimitiveTypes
         {
             string value = Convert.ToString(10, 8);
 
-            double result = ConvertToBase10(value, 8);
+            double result = ConvertFromBase(value, 8);
 
             Assert.AreEqual(10, result);
         }
@@ -60,7 +60,7 @@ namespace PrimitiveTypes
         /// Converts a number from base 10 to any base.
         /// </summary>
         /// <param name="value">The value to be converted.</param>
-        /// <param name="toBase">The output base.</param>
+        /// <param name="toBase">To base.</param>
         /// <returns></returns>
         private string ConvertToBase(int value, int toBase) {
             if (toBase < 2) throw new ArgumentException("Invalid base.");
@@ -76,7 +76,13 @@ namespace PrimitiveTypes
             return result;
         }
 
-        private double ConvertToBase10(string value, int fromBase)
+        /// <summary>
+        /// Converts a number from any base to base 10.
+        /// </summary>
+        /// <param name="value">The value to be converted.</param>
+        /// <param name="fromBase">From base.</param>
+        /// <returns></returns>
+        private double ConvertFromBase(string value, int fromBase)
         {
             double result = 0;
             for(int i = value.Length; i > 0; i--)
@@ -84,7 +90,6 @@ namespace PrimitiveTypes
                 char ch = value[i - 1];
                 result += (int)Char.GetNumericValue(ch) * Math.Pow(fromBase, value.Length - i);
             }
-
             return result;
         }
 
