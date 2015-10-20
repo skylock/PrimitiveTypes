@@ -18,9 +18,9 @@ namespace PrimitiveTypes
         public void Convert_To_Base_2_No_9() {
             string expected = Convert.ToString(9, 2);
             
-            string result = ConvertToBase(9,2);
+            string actual = ConvertToBase(9,2);
 
-            Assert.AreEqual(expected, result);
+            Assert.AreEqual(expected, actual);
         }
 
         [TestMethod]
@@ -28,31 +28,31 @@ namespace PrimitiveTypes
         public void Convert_To_Base_2_No_172() {
             string expected = Convert.ToString(172, 2);
 
-            string result = ConvertToBase(172, 2);
+            string actual = ConvertToBase(172, 2);
 
-            Assert.AreEqual(expected, result);
+            Assert.AreEqual(expected, actual);
         }
 
         [TestMethod]
         [TestCategory("13_Convert_To_Base")]
         public void Convert_From_Base_2_To_Base_10_No_172()
         {
-            string binaryString = Convert.ToString(172, 2);
+            string expected = Convert.ToString(172, 2);
 
-            double result = ConvertFromBase(binaryString, 2);
+            string actual = ConvertFromBase("172", 2);
 
-            Assert.AreEqual(172, result);
+            Assert.AreEqual(expected, actual);
         }
 
         [TestMethod]
         [TestCategory("13_Convert_To_Base")]
         public void Convert_From_Base_8_To_Base_10_No_13()
         {
-            string value = Convert.ToString(10, 8);
+            string expected = Convert.ToString(13, 8);
 
-            double result = ConvertFromBase(value, 8);
+            string actual = ConvertFromBase("13", 8);
 
-            Assert.AreEqual(10, result);
+            Assert.AreEqual(expected, actual);
         }
 
 
@@ -82,7 +82,7 @@ namespace PrimitiveTypes
         /// <param name="value">The value to be converted.</param>
         /// <param name="fromBase">From base.</param>
         /// <returns></returns>
-        private double ConvertFromBase(string value, int fromBase)
+        private string ConvertFromBase(string value, int fromBase)
         {
             double result = 0;
             for(int i = value.Length; i > 0; i--)
@@ -90,7 +90,7 @@ namespace PrimitiveTypes
                 char ch = value[i - 1];
                 result += (int)Char.GetNumericValue(ch) * Math.Pow(fromBase, value.Length - i);
             }
-            return result;
+            return result.ToString();
         }
 
     }
