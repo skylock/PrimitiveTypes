@@ -10,12 +10,12 @@ namespace PrimitiveTypes
         [TestMethod]
         [TestCategory("13_Convert_To_Base")]
         [ExpectedException(typeof(ArgumentException))]
-        public void Convert_To_A_Base_Lower_Than_2() {
+        public void Convert_From_Base_10_To_A_Base_Lower_Than_2() {
             string result = ConvertToBase(9, 0);
         }
         [TestMethod]
         [TestCategory("13_Convert_To_Base")]
-        public void Convert_To_Base_2_No_9() {
+        public void Convert_From_Base_10_To_Base_2_No_9() {
             string expected = Convert.ToString(9, 2);
             
             string actual = ConvertToBase(9,2);
@@ -25,7 +25,7 @@ namespace PrimitiveTypes
 
         [TestMethod]
         [TestCategory("13_Convert_To_Base")]
-        public void Convert_To_Base_2_No_172() {
+        public void Convert_From_Base_10_To_Base_2_No_172() {
             string expected = Convert.ToString(172, 2);
 
             string actual = ConvertToBase(172, 2);
@@ -39,7 +39,7 @@ namespace PrimitiveTypes
         {
             string expected = Convert.ToString(172, 2);
 
-            string actual = ConvertFromBase("172", 2);
+            string actual = ConvertFromBase(expected, 10);
 
             Assert.AreEqual(expected, actual);
         }
@@ -50,7 +50,7 @@ namespace PrimitiveTypes
         {
             string expected = Convert.ToString(13, 8);
 
-            string actual = ConvertFromBase("13", 8);
+            string actual = ConvertFromBase(expected, 10);
 
             Assert.AreEqual(expected, actual);
         }
