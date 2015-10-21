@@ -62,6 +62,64 @@ namespace PrimitiveTypes
             Assert.AreEqual(expected, actual);
         }
 
+        [TestMethod]
+        [TestCategory("13_Convert_To_Base")]
+        public void Test_Bitwise_NOT() {
+            byte[] actual = ConvertToBase(4, 2);
+            byte[] expected = { 1, 1, 1, 1, 1, 0, 1, 1 };
+            
+            NOT(actual);
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        [TestCategory("13_Convert_To_Base")]
+        public void Test_Bitwise_AND_When_Params_Have_Same_Length() {
+            int expected = 4 & 4;
+            byte[] first = ConvertToBase(4, 2);
+            byte[] second = ConvertToBase(4, 2);
+
+            int actual = ConvertFromBase(AND(first, second), 2);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        [TestCategory("13_Convert_To_Base")]
+        public void Test_Bitwise_AND_When_Params_Have_Different_Lengths() {
+            int expected = 2 & 255;
+            byte[] first = ConvertToBase(2, 2);
+            byte[] second = ConvertToBase(256, 2);
+
+            int actual = ConvertFromBase(AND(first, second), 2);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        private byte[] AND(byte[] first, byte[] second) {
+            int size = Math.Max(first.Length, second.Length);
+            byte[] result = new byte[size];
+            for (int i = size -1; i > 0; i--) {
+                if (first[i] == 1) {
+                    if (second[i] == 1) result[i] = 1;
+                } else {
+                    result[i] = 0;
+                }
+            }
+            return result;
+        }
+
+        private void NOT(byte[] bytes) {
+            for (int i = 0; i < bytes.Length; i++) {
+                if (bytes[i] == 0) {
+                    bytes[i] = 1;
+                } else {
+                    bytes[i] = 0;
+                }
+            }
+        }
+
         /// <summary>
         /// Converts a number from base 10 to any base.
         /// </summary>
