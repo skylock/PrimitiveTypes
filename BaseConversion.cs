@@ -114,9 +114,7 @@ namespace PrimitiveTypes
             int limit = Math.Min(first.Length, second.Length);
             byte[] result = new byte[size];
             for (int i = 0; i < limit; i++) {
-                if (first[i] == 1) {
-                    if (second[i] == 1) result[i] = 1;
-                }
+                 result[i] = (byte)(first[i] * second[i]);
             }
             return result;
         }
