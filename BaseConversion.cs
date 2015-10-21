@@ -121,6 +121,18 @@ namespace PrimitiveTypes
             Assert.AreEqual(expected, actual);
         }
 
+        [TestMethod]
+        [TestCategory("13_Convert_To_Base")]
+        public void Test_Bitwise_OR_When_Params_Have_Different_Lengths() {
+            int expected = 255 & 384;
+            byte[] first = ConvertToBase(255, 2);
+            byte[] second = ConvertToBase(384, 2);
+
+            int actual = ConvertFromBase(OR(first, second), 2);
+
+            Assert.AreEqual(expected, actual);
+        }
+
         private byte[] OR(byte[] first, byte[] second) {
             int size = Math.Max(first.Length, second.Length);
             int limit = Math.Min(first.Length, second.Length);
