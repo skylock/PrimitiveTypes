@@ -66,7 +66,7 @@ namespace PrimitiveTypes
         [TestCategory("13_Convert_To_Base")]
         public void Test_Bitwise_NOT() {
             byte[] actual = ConvertToBase(4, 2);
-            byte[] expected = { 1, 1, 1, 1, 1, 0, 1, 1 };
+            byte[] expected = { 1, 1, 0, 1, 1, 1, 1, 1 };
             
             NOT(actual);
 
@@ -97,14 +97,25 @@ namespace PrimitiveTypes
             Assert.AreEqual(expected, actual);
         }
 
+        [TestMethod]
+        [TestCategory("13_Convert_To_Base")]
+        public void Test_Bitwise_AND_When_Params_Have_Different_Lengths2() {
+            int expected = 255 & 256;
+            byte[] first = ConvertToBase(255, 2);
+            byte[] second = ConvertToBase(256, 2);
+
+            int actual = ConvertFromBase(AND(first, second), 2);
+
+            Assert.AreEqual(expected, actual);
+        }
+
         private byte[] AND(byte[] first, byte[] second) {
             int size = Math.Max(first.Length, second.Length);
+            int limit = Math.Min(first.Length, second.Length);
             byte[] result = new byte[size];
-            for (int i = size -1; i >= 0; i--) {
+            for (int i = 0; i < limit; i++) {
                 if (first[i] == 1) {
                     if (second[i] == 1) result[i] = 1;
-                } else {
-                    result[i] = 0;
                 }
             }
             return result;
@@ -141,7 +152,6 @@ namespace PrimitiveTypes
                 divisionResult = (divisionResult - remainder) / toBase;
                 i++;
             }
-            Array.Reverse(bytes);
             return bytes;
         }
 
@@ -154,10 +164,10 @@ namespace PrimitiveTypes
         private int ConvertFromBase(byte[] value, int fromBase)
         {
             int result = 0;
-            for(int i = value.Length; i > 0; i--)
+            for(int i = 0; i < value.Length; i++)
             {
-                byte cellVaue = value[i - 1];
-                result += cellVaue * (int)Math.Pow(fromBase, value.Length - i);
+                byte cellVaue = value[i];
+                result += cellVaue * (int)Math.Pow(fromBase, i);
             }
             return result;
         }
