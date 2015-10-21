@@ -100,7 +100,7 @@ namespace PrimitiveTypes
         private byte[] AND(byte[] first, byte[] second) {
             int size = Math.Max(first.Length, second.Length);
             byte[] result = new byte[size];
-            for (int i = size -1; i > 0; i--) {
+            for (int i = size -1; i >= 0; i--) {
                 if (first[i] == 1) {
                     if (second[i] == 1) result[i] = 1;
                 } else {
