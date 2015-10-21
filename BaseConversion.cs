@@ -88,9 +88,9 @@ namespace PrimitiveTypes
         [TestMethod]
         [TestCategory("13_Convert_To_Base")]
         public void Test_Bitwise_AND_When_Params_Have_Different_Lengths() {
-            int expected = 2 & 255;
-            byte[] first = ConvertToBase(2, 2);
-            byte[] second = ConvertToBase(256, 2);
+            int expected = 255 & 384;
+            byte[] first = ConvertToBase(255, 2);
+            byte[] second = ConvertToBase(384, 2);
 
             int actual = ConvertFromBase(AND(first, second), 2);
 
