@@ -13,49 +13,54 @@ namespace PrimitiveTypes
         public void Convert_From_Base_10_To_A_Base_Lower_Than_2() {
             byte[] result = ConvertToBase(9, 0);
         }
+        
         [TestMethod]
         [TestCategory("13_Convert_To_Base")]
         public void Convert_From_Base_10_To_Base_2_No_9() {
-            string expected = Convert.ToString(9, 2);
-            
-            byte[] result = ConvertToBase(9,2);
-            string actual = GetString(result);
+            int expected = 9;
+            int cBase = 2;
+
+            byte[] result = ConvertToBase(expected, cBase);
+            int actual = ConvertFromBase(result, cBase);
 
             Assert.AreEqual(expected, actual);
         }
 
-        //[TestMethod]
-        //[TestCategory("13_Convert_To_Base")]
-        //public void Convert_From_Base_10_To_Base_2_No_172() {
-        //    string expected = Convert.ToString(172, 2);
+        [TestMethod]
+        [TestCategory("13_Convert_To_Base")]
+        public void Convert_From_Base_10_To_Base_2_No_1119() {
+            int expected = 1119;
+            int cBase = 2;
 
-        //    string actual = ConvertToBase(172, 2);
+            byte[] result = ConvertToBase(expected, cBase);
+            int actual = ConvertFromBase(result, cBase);
 
-        //    Assert.AreEqual(expected, actual);
-        //}
+            Assert.AreEqual(expected, actual);
+        }
 
-        //[TestMethod]
-        //[TestCategory("13_Convert_To_Base")]
-        //public void Convert_From_Base_2_To_Base_10_No_172()
-        //{
-        //    string expected = Convert.ToString(172, 2);
+        [TestMethod]
+        [TestCategory("13_Convert_To_Base")]
+        public void Convert_From_Base_10_To_Base_2_No_172() {
+            int expected = 172;
+            int cBase = 2;
 
-        //    string actual = ConvertFromBase(expected, 10);
+            byte[] result = ConvertToBase(expected, cBase);
+            int actual = ConvertFromBase(result, cBase);
 
-        //    Assert.AreEqual(expected, actual);
-        //}
+            Assert.AreEqual(expected, actual);
+        }
 
-        //[TestMethod]
-        //[TestCategory("13_Convert_To_Base")]
-        //public void Convert_From_Base_8_To_Base_10_No_13()
-        //{
-        //    string expected = Convert.ToString(13, 8);
+        [TestMethod]
+        [TestCategory("13_Convert_To_Base")]
+        public void Convert_From_Base_8_To_Base_10_No_172() {
+            int expected = 172;
+            int cBase = 8;
 
-        //    string actual = ConvertFromBase(expected, 10);
+            byte[] result = ConvertToBase(expected, cBase);
+            int actual = ConvertFromBase(result, cBase);
 
-        //    Assert.AreEqual(expected, actual);
-        //}
-
+            Assert.AreEqual(expected, actual);
+        }
 
         /// <summary>
         /// Converts a number from base 10 to any base.
@@ -88,21 +93,13 @@ namespace PrimitiveTypes
         /// <param name="value">The value to be converted.</param>
         /// <param name="fromBase">From base.</param>
         /// <returns></returns>
-        private string ConvertFromBase(string value, int fromBase)
+        private int ConvertFromBase(byte[] value, int fromBase)
         {
-            double result = 0;
+            int result = 0;
             for(int i = value.Length; i > 0; i--)
             {
-                char ch = value[i - 1];
-                result += (int)Char.GetNumericValue(ch) * Math.Pow(fromBase, value.Length - i);
-            }
-            return result.ToString();
-        }
-
-        static string GetString(byte[] bytes) {
-            string result = string.Empty;
-            for (int i = 0; i < bytes.Length; i++) {
-                result += bytes[i];
+                byte cellVaue = value[i - 1];
+                result += cellVaue * (int)Math.Pow(fromBase, value.Length - i);
             }
             return result;
         }
