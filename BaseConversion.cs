@@ -161,15 +161,18 @@ namespace PrimitiveTypes
         [TestCategory("13_Convert_To_Base")]
         public void Test_Bitwise_Left_Shift() {
             byte[] bytes = ConvertToBase(2, 2);
-            byte[] expected = ConvertToBase(2 << 5, 2);
+            byte[] expected = ConvertToBase(2 << 1, 2);
 
-            byte[] actual = LeftShift(bytes, 5);
+            byte[] actual = LeftShift(bytes, 1);
 
-            Assert.AreEqual(expected, actual);
+            CollectionAssert.AreEqual(expected, actual);
         }
 
         private byte[] LeftShift(byte[] bytes, int numberOfBits) {
-            throw new NotImplementedException();
+            if (numberOfBits == 0) return bytes;
+            byte[] result = new byte[bytes.Length];
+            Array.Copy(bytes, numberOfBits, result, numberOfBits + 1, bytes.Length - numberOfBits -1);
+            return result;
         }
 
         private byte[] XOR(byte[] first, byte[] second) {
@@ -207,6 +210,21 @@ namespace PrimitiveTypes
         }
 
         /// <summary>
+        /// Converts a number from any base to base 10.
+        /// </summary>
+        /// <param name="value">The value to be converted.</param>
+        /// <param name="fromBase">From base.</param>
+        /// <returns></returns>
+        private int ConvertFromBase(byte[] value, int fromBase) {
+            int result = 0;
+            for(int i = 0; i < value.Length; i++) {
+                byte cellValue = value[i];
+                result += cellValue * (int)Math.Pow(fromBase, i);
+            }
+            return result;
+        }
+
+        /// <summary>
         /// Converts a number from base 10 to any base.
         /// </summary>
         /// <param name="value">The value to be converted.</param>
@@ -226,6 +244,10 @@ namespace PrimitiveTypes
             return bytes;
         }
 
+        private static byte[] GetLargerArray(byte[] first, byte[] second) {
+           return (first.Length > second.Length) ? first: second;
+        }
+        
         private static byte[] ResizeArray(byte[] bytes) {
             int baseSize = 8;
             Array.Resize(ref bytes, bytes.Length + baseSize);
@@ -234,25 +256,6 @@ namespace PrimitiveTypes
 
         private static void ValidateBase(int toBase) {
             if (toBase < 2) throw new ArgumentException("Invalid base.");
-        }
-
-        /// <summary>
-        /// Converts a number from any base to base 10.
-        /// </summary>
-        /// <param name="value">The value to be converted.</param>
-        /// <param name="fromBase">From base.</param>
-        /// <returns></returns>
-        private int ConvertFromBase(byte[] value, int fromBase) {
-            int result = 0;
-            for(int i = 0; i < value.Length; i++) {
-                byte cellValue = value[i];
-                result += cellValue * (int)Math.Pow(fromBase, i);
-            }
-            return result;
-        }
-
-        private static byte[] GetLargerArray(byte[] first, byte[] second) {
-           return (first.Length > second.Length) ? first: second;
         }
     }
 }
