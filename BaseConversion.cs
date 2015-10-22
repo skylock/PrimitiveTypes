@@ -213,21 +213,27 @@ namespace PrimitiveTypes
         /// <param name="toBase">To base.</param>
         /// <returns></returns>
         private byte[] ConvertToBase(int value, int toBase) {
-            if (toBase < 2) throw new ArgumentException("Invalid base.");
-            int i = 0;
-            int baseSize = 8;
-            byte[] bytes = new byte[baseSize];
+            ValidateBase(toBase);
+            byte[] bytes = new byte[8];
             int divisionResult = value;
             int remainder;
-
-            while (divisionResult > 0) {
-                if (i == bytes.Length) Array.Resize(ref bytes, bytes.Length + baseSize);
+            for(int i = 0; divisionResult > 0; i++) {
+                if (i == bytes.Length) bytes = ResizeArray(bytes);
                 remainder = divisionResult  % toBase;
                 bytes[i] = (byte)remainder;
                 divisionResult = (divisionResult - remainder) / toBase;
-                i++;
             }
             return bytes;
+        }
+
+        private static byte[] ResizeArray(byte[] bytes) {
+            int baseSize = 8;
+            Array.Resize(ref bytes, bytes.Length + baseSize);
+            return bytes;
+        }
+
+        private static void ValidateBase(int toBase) {
+            if (toBase < 2) throw new ArgumentException("Invalid base.");
         }
 
         /// <summary>
