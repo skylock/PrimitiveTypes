@@ -157,31 +157,44 @@ namespace PrimitiveTypes
             Assert.AreEqual(expected, actual);
         }
 
+        [TestMethod]
+        [TestCategory("13_Convert_To_Base")]
+        public void Test_Bitwise_Left_Shift() {
+            byte[] bytes = ConvertToBase(2, 2);
+            byte[] expected = ConvertToBase(64, 2);
+
+            byte[] actual = RoL(bytes, 6);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        private byte[] RoL(byte[] bytes, int p) {
+            throw new NotImplementedException();
+        }
+
         private byte[] XOR(byte[] first, byte[] second) {
-            int size = Math.Max(first.Length, second.Length);
-            int limit = Math.Min(first.Length, second.Length);
+            int minSize = Math.Min(first.Length, second.Length);
             byte[] result = GetLargerArray(first, second);
-            for (int i = 0; i < limit; i++) {
+            for (int i = 0; i < minSize; i++) {
                 result[i] = (byte)((first[i] + second[i] == 1) ? 1 : 0);
             }
             return result;
         }
 
         private byte[] OR(byte[] first, byte[] second) {
-            int size = Math.Max(first.Length, second.Length);
-            int limit = Math.Min(first.Length, second.Length);
+            int minSize = Math.Min(first.Length, second.Length);
             byte[] result = GetLargerArray(first, second);
-            for (int i = 0; i < limit; i++) {
+            for (int i = 0; i < minSize; i++) {
                 if (first[i] + second[i] > 0) result[i] = 1;
             }
             return result;
         }
 
         private byte[] AND(byte[] first, byte[] second) {
-            int size = Math.Max(first.Length, second.Length);
-            int limit = Math.Min(first.Length, second.Length);
-            byte[] result = new byte[size];
-            for (int i = 0; i < limit; i++) {
+            int maxSize = Math.Max(first.Length, second.Length);
+            int minSize = Math.Min(first.Length, second.Length);
+            byte[] result = new byte[maxSize];
+            for (int i = 0; i < minSize; i++) {
                  result[i] = (byte)(first[i] * second[i]);
             }
             return result;
@@ -189,11 +202,7 @@ namespace PrimitiveTypes
 
         private void NOT(byte[] bytes) {
             for (int i = 0; i < bytes.Length; i++) {
-                if (bytes[i] == 0) {
-                    bytes[i] = 1;
-                } else {
-                    bytes[i] = 0;
-                }
+                bytes[i] = (byte)((bytes[i] == 0) ? 1 : 0);
             }
         }
 
@@ -227,23 +236,17 @@ namespace PrimitiveTypes
         /// <param name="value">The value to be converted.</param>
         /// <param name="fromBase">From base.</param>
         /// <returns></returns>
-        private int ConvertFromBase(byte[] value, int fromBase)
-        {
+        private int ConvertFromBase(byte[] value, int fromBase) {
             int result = 0;
-            for(int i = 0; i < value.Length; i++)
-            {
-                byte cellVaue = value[i];
-                result += cellVaue * (int)Math.Pow(fromBase, i);
+            for(int i = 0; i < value.Length; i++) {
+                byte cellValue = value[i];
+                result += cellValue * (int)Math.Pow(fromBase, i);
             }
             return result;
         }
 
         private static byte[] GetLargerArray(byte[] first, byte[] second) {
-            if (first.Length > second.Length) {
-                return first;
-            } else {
-                return second;
-            }
+           return (first.Length > second.Length) ? first: second;
         }
     }
 }
