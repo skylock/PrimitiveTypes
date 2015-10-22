@@ -124,7 +124,7 @@ namespace PrimitiveTypes
         [TestMethod]
         [TestCategory("13_Convert_To_Base")]
         public void Test_Bitwise_OR_When_Params_Have_Different_Lengths() {
-            int expected = 255 & 384;
+            int expected = 255 | 384;
             byte[] first = ConvertToBase(255, 2);
             byte[] second = ConvertToBase(384, 2);
 
@@ -137,8 +137,15 @@ namespace PrimitiveTypes
             int size = Math.Max(first.Length, second.Length);
             int limit = Math.Min(first.Length, second.Length);
             byte[] result = new byte[size];
-            for (int i = 0; i < limit; i++) {
-                if (first[i] + second[i] > 0) result[i] = 1;
+            if (first.Length > second.Length) {
+                result = first;
+            } else {
+                result = second;
+            }
+            for (int i = 0; i < size; i++) {
+                if (i < limit) {
+                    if (first[i] + second[i] > 0) result[i] = 1;
+                } 
             }
             return result;
         }
