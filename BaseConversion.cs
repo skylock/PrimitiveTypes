@@ -133,6 +133,40 @@ namespace PrimitiveTypes
             Assert.AreEqual(expected, actual);
         }
 
+        [TestMethod]
+        [TestCategory("13_Convert_To_Base")]
+        public void Test_Bitwise_XOR_When_Params_Have_Same_Length() {
+            int expected = 6 ^ 8;
+            byte[] first = ConvertToBase(6, 2);
+            byte[] second = ConvertToBase(8, 2);
+
+            int actual = ConvertFromBase(XOR(first, second), 2);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        [TestCategory("13_Convert_To_Base")]
+        public void Test_Bitwise_XOR_When_Params_Have_Different_Lengths() {
+            int expected = 255 ^ 384;
+            byte[] first = ConvertToBase(255, 2);
+            byte[] second = ConvertToBase(384, 2);
+
+            int actual = ConvertFromBase(XOR(first, second), 2);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        private byte[] XOR(byte[] first, byte[] second) {
+            int size = Math.Max(first.Length, second.Length);
+            int limit = Math.Min(first.Length, second.Length);
+            byte[] result = GetLargerArray(first, second);
+            for (int i = 0; i < limit; i++) {
+                result[i] = (byte)((first[i] + second[i] == 1) ? 1 : 0);
+            }
+            return result;
+        }
+
         private byte[] OR(byte[] first, byte[] second) {
             int size = Math.Max(first.Length, second.Length);
             int limit = Math.Min(first.Length, second.Length);
@@ -146,7 +180,7 @@ namespace PrimitiveTypes
         private byte[] AND(byte[] first, byte[] second) {
             int size = Math.Max(first.Length, second.Length);
             int limit = Math.Min(first.Length, second.Length);
-            byte[] result = new  byte[size];
+            byte[] result = new byte[size];
             for (int i = 0; i < limit; i++) {
                  result[i] = (byte)(first[i] * second[i]);
             }
