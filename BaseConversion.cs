@@ -136,12 +136,7 @@ namespace PrimitiveTypes
         private byte[] OR(byte[] first, byte[] second) {
             int size = Math.Max(first.Length, second.Length);
             int limit = Math.Min(first.Length, second.Length);
-            byte[] result = new byte[size];
-            if (first.Length > second.Length) {
-                result = first;
-            } else {
-                result = second;
-            }
+            byte[] result = GetLargerArray(first, second);
             for (int i = 0; i < size; i++) {
                 if (i < limit) {
                     if (first[i] + second[i] > 0) result[i] = 1;
@@ -153,7 +148,7 @@ namespace PrimitiveTypes
         private byte[] AND(byte[] first, byte[] second) {
             int size = Math.Max(first.Length, second.Length);
             int limit = Math.Min(first.Length, second.Length);
-            byte[] result = new byte[size];
+            byte[] result = new  byte[size];
             for (int i = 0; i < limit; i++) {
                  result[i] = (byte)(first[i] * second[i]);
             }
@@ -209,6 +204,14 @@ namespace PrimitiveTypes
                 result += cellVaue * (int)Math.Pow(fromBase, i);
             }
             return result;
+        }
+
+        private static byte[] GetLargerArray(byte[] first, byte[] second) {
+            if (first.Length > second.Length) {
+                return first;
+            } else {
+                return second;
+            }
         }
     }
 }
