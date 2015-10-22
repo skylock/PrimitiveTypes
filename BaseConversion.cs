@@ -161,14 +161,14 @@ namespace PrimitiveTypes
         [TestCategory("13_Convert_To_Base")]
         public void Test_Bitwise_Left_Shift() {
             byte[] bytes = ConvertToBase(2, 2);
-            byte[] expected = ConvertToBase(64, 2);
+            byte[] expected = ConvertToBase(2 << 5, 2);
 
-            byte[] actual = RoL(bytes, 6);
+            byte[] actual = LeftShift(bytes, 5);
 
             Assert.AreEqual(expected, actual);
         }
 
-        private byte[] RoL(byte[] bytes, int p) {
+        private byte[] LeftShift(byte[] bytes, int numberOfBits) {
             throw new NotImplementedException();
         }
 
