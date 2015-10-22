@@ -137,10 +137,8 @@ namespace PrimitiveTypes
             int size = Math.Max(first.Length, second.Length);
             int limit = Math.Min(first.Length, second.Length);
             byte[] result = GetLargerArray(first, second);
-            for (int i = 0; i < size; i++) {
-                if (i < limit) {
-                    if (first[i] + second[i] > 0) result[i] = 1;
-                } 
+            for (int i = 0; i < limit; i++) {
+                if (first[i] + second[i] > 0) result[i] = 1;
             }
             return result;
         }
