@@ -168,16 +168,16 @@ namespace PrimitiveTypes
             CollectionAssert.AreEqual(expected, actual);
         }
 
-        private byte[] LeftShift(byte[] bytes, int numberOfBits) {
-            if (numberOfBits == 0) return bytes;
+        private byte[] LeftShift(byte[] bytes, int moves) {
+            if (moves == 0) return bytes;
             byte[] result = new byte[bytes.Length];
-            int firstIndex = GetFirstIndex(bytes);
-            if (firstIndex == bytes.Length - 1) ResizeArray(ref result);
-            Array.Copy(bytes, 0, result, numberOfBits, firstIndex + 1);
+            int index = GetStartIndex(bytes);
+            if (index == bytes.Length - 1) ResizeArray(ref result);
+            Array.Copy(bytes, 0, result, moves, index + 1);
             return result;
         }
 
-        private int GetFirstIndex(byte[] bytes) {
+        private int GetStartIndex(byte[] bytes) {
             int result = 0;
             for (int i = bytes.Length - 1; i >= 0; i--) {
                 if (bytes[i] == 1) return i;
