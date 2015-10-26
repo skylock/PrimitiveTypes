@@ -223,6 +223,30 @@ namespace PrimitiveTypes
             Assert.IsTrue(result);
         }
 
+        [TestMethod]
+        [TestCategory("13_Convert_To_Base")]
+        public void Test_Addition_In_Base_5()
+        {
+            int expected = 25;
+
+            byte[] result = AddInBase(13, 12, 5);
+            int actual = ConvertFromBase(result, 5);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        private byte[] AddInBase(int firstValue, int secondValue, int inBase)
+        {
+            byte[] first = ConvertToBase(firstValue, inBase);
+            byte[] second = ConvertToBase(secondValue, inBase);
+            int minSize = Math.Min(first.Length, second.Length);
+            byte[] result = GetLargerArray(first, second);
+            for (int i = 0; i < minSize; i++)
+            {
+            }
+            return result;
+        }
+
         private bool NotEqualTo(byte[] reference, byte[] compared) {
             return (LessThan(reference, compared)) || GraterThan(reference, compared);
         }
@@ -364,7 +388,7 @@ namespace PrimitiveTypes
         }
 
         private static byte[] GetLargerArray(byte[] first, byte[] second) {
-           return (first.Length > second.Length) ? first: second;
+           return (first.Length >= second.Length) ? first: second;
         }
         
         private static byte[] ResizeArray(ref byte[] bytes) {
