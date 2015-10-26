@@ -171,9 +171,17 @@ namespace PrimitiveTypes
         private byte[] LeftShift(byte[] bytes, int numberOfBits) {
             if (numberOfBits == 0) return bytes;
             byte[] result = new byte[bytes.Length];
-            Array.Copy(bytes, 0, result, numberOfBits, bytes.Length - 1 - numberOfBits);
-            Array.Copy(bytes, bytes.Length - numberOfBits, result, 0, numberOfBits);
+            int firstIndex = GetFirstIndex(bytes);
+            if (firstIndex == bytes.Length - 1) ResizeArray(ref result);
+            Array.Copy(bytes, 0, result, numberOfBits, firstIndex + 1);
+            return result;
+        }
 
+        private int GetFirstIndex(byte[] bytes) {
+            int result = 0;
+            for (int i = bytes.Length - 1; i >= 0; i--) {
+                if (bytes[i] == 1) return i;
+            }
             return result;
         }
 
@@ -238,7 +246,7 @@ namespace PrimitiveTypes
             int divisionResult = value;
             int remainder;
             for(int i = 0; divisionResult > 0; i++) {
-                if (i == bytes.Length) bytes = ResizeArray(bytes);
+                if (i == bytes.Length) bytes = ResizeArray(ref bytes);
                 remainder = divisionResult  % toBase;
                 bytes[i] = (byte)remainder;
                 divisionResult = (divisionResult - remainder) / toBase;
@@ -250,7 +258,7 @@ namespace PrimitiveTypes
            return (first.Length > second.Length) ? first: second;
         }
         
-        private static byte[] ResizeArray(byte[] bytes) {
+        private static byte[] ResizeArray(ref byte[] bytes) {
             int baseSize = 8;
             Array.Resize(ref bytes, bytes.Length + baseSize);
             return bytes;
