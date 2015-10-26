@@ -181,13 +181,28 @@ namespace PrimitiveTypes
 
         [TestMethod]
         [TestCategory("13_Convert_To_Base")]
-        public void Test_256_LessThan_128() {
-            byte[] value1 = ConvertToBase(256, 2);
-            byte[] value2 = ConvertToBase(128, 2);
+        public void Test_128_LessThan_256() {
+            byte[] reference = ConvertToBase(128, 2);
+            byte[] compared = ConvertToBase(256, 2);
 
-            bool result = LessThan(value1, value2);
+            bool result = LessThan(reference, compared);
 
-            Assert.IsFalse(result);
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        [TestCategory("13_Convert_To_Base")]
+        public void Test_256_GraterThan_128() {
+            byte[] reference = ConvertToBase(256, 2);
+            byte[] compared = ConvertToBase(128, 2);
+
+            bool result = GraterThan(reference, compared);
+
+            Assert.IsTrue(result);
+        }
+
+        private bool GraterThan(byte[] reference, byte[] compared) {
+            return LessThan(compared, reference);
         }
 
         private bool LessThan(byte[] reference, byte[] compared) {
