@@ -179,6 +179,30 @@ namespace PrimitiveTypes
             CollectionAssert.AreEqual(expected, actual);
         }
 
+        [TestMethod]
+        [TestCategory("13_Convert_To_Base")]
+        public void Test_256_LessThan_128() {
+            byte[] value1 = ConvertToBase(256, 2);
+            byte[] value2 = ConvertToBase(128, 2);
+
+            bool result = LessThan(value1, value2);
+
+            Assert.IsFalse(result);
+        }
+
+        private bool LessThan(byte[] reference, byte[] compared) {
+            int referenceIndex = GetStartIndex(reference);
+            int compareIndex = GetStartIndex(compared);
+            if (referenceIndex < compareIndex) return true;
+            if (referenceIndex == compareIndex) {
+                for (int i = 0; i < reference.Length; i++) {
+                    if (reference[i] < compared[i]) return true;
+                }
+                return false;
+            }
+            return false;
+        }
+
         private byte[] RightShift(byte[] bytes, int moves) {
             if (moves == 0) return bytes;
             byte[] result = bytes;
