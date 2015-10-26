@@ -201,6 +201,36 @@ namespace PrimitiveTypes
             Assert.IsTrue(result);
         }
 
+        [TestMethod]
+        [TestCategory("13_Convert_To_Base")]
+        public void Test_256_EqualTo_256() {
+            byte[] reference = ConvertToBase(256, 2);
+            byte[] compared = ConvertToBase(256, 2);
+
+            bool result = EqualTo(reference, compared);
+
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        [TestCategory("13_Convert_To_Base")]
+        public void Test_256_NotEqualTo_257() {
+            byte[] reference = ConvertToBase(257, 2);
+            byte[] compared = ConvertToBase(256, 2);
+
+            bool result = NotEqualTo(reference, compared);
+
+            Assert.IsTrue(result);
+        }
+
+        private bool NotEqualTo(byte[] reference, byte[] compared) {
+            return (LessThan(reference, compared)) || GraterThan(reference, compared);
+        }
+
+        private bool EqualTo(byte[] reference, byte[] compared) {
+            return !(LessThan(reference, compared)) && !GraterThan(reference, compared);
+        }
+
         private bool GraterThan(byte[] reference, byte[] compared) {
             return LessThan(compared, reference);
         }
