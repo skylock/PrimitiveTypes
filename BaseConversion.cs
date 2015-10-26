@@ -171,10 +171,10 @@ namespace PrimitiveTypes
         [TestMethod]
         [TestCategory("13_Convert_To_Base")]
         public void Test_Bitwise_Right_Shift() {
-            byte[] bytes = ConvertToBase(256, 2);
-            byte[] expected = ConvertToBase(256 >> 1, 2);
+            byte[] bytes = ConvertToBase(65536, 2);
+            byte[] expected = ConvertToBase(65536 >> 9, 2);
 
-            byte[] actual = RightShift(bytes, 1);
+            byte[] actual = RightShift(bytes, 9);
 
             CollectionAssert.AreEqual(expected, actual);
         }
@@ -190,8 +190,10 @@ namespace PrimitiveTypes
         }
 
         private byte[] RightShiftOneBit(byte[] bytes) {
+            int baseSize = 8;
+            byte[] result = new byte[bytes.Length];
             int index = GetStartIndex(bytes);
-            byte[] result = new byte[8];
+            if (index % baseSize == 0) Array.Resize(ref result, bytes.Length - baseSize);
             Array.Copy(bytes, 1, result, 0, index);
             return result;
         }
