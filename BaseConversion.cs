@@ -243,6 +243,8 @@ namespace PrimitiveTypes
             byte[] result = GetLargerArray(first, second);
             for (int i = 0; i < minSize; i++)
             {
+                int sum = (byte)(first[i] + second[i]);
+                result[i] = (byte)(sum % inBase);
             }
             return result;
         }
