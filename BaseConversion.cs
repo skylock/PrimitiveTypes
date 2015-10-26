@@ -160,20 +160,30 @@ namespace PrimitiveTypes
         [TestMethod]
         [TestCategory("13_Convert_To_Base")]
         public void Test_Bitwise_Left_Shift() {
-            byte[] bytes = ConvertToBase(2, 2);
-            byte[] expected = ConvertToBase(2 << 5, 2);
+            byte[] bytes = ConvertToBase(129, 2);
+            byte[] expected = ConvertToBase(129 << 17, 2);
 
-            byte[] actual = LeftShift(bytes, 5);
+            byte[] actual = LeftShift(bytes, 17);
 
             CollectionAssert.AreEqual(expected, actual);
         }
 
         private byte[] LeftShift(byte[] bytes, int moves) {
             if (moves == 0) return bytes;
-            byte[] result = new byte[bytes.Length];
+            byte[] result = bytes;
+            while (moves > 0) {
+                result = LeftShiftOneBit(result);
+                moves--;
+            }
+            return result;
+        }
+
+        private byte[] LeftShiftOneBit(byte[] bytes) {
+            int lastIndex = bytes.Length - 1;
+            if (bytes[lastIndex] == 1) ResizeArray(ref bytes);
             int index = GetStartIndex(bytes);
-            if (index == bytes.Length - 1) ResizeArray(ref result);
-            Array.Copy(bytes, 0, result, moves, index + 1);
+            byte[] result = new byte[bytes.Length];
+            Array.Copy(bytes, 0, result, 1, index + 1);
             return result;
         }
 
