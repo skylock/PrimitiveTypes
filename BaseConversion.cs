@@ -168,6 +168,34 @@ namespace PrimitiveTypes
             CollectionAssert.AreEqual(expected, actual);
         }
 
+        [TestMethod]
+        [TestCategory("13_Convert_To_Base")]
+        public void Test_Bitwise_Right_Shift() {
+            byte[] bytes = ConvertToBase(256, 2);
+            byte[] expected = ConvertToBase(256 >> 1, 2);
+
+            byte[] actual = RightShift(bytes, 1);
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        private byte[] RightShift(byte[] bytes, int moves) {
+            if (moves == 0) return bytes;
+            byte[] result = bytes;
+            while (moves > 0) {
+                result = RightShiftOneBit(result);
+                moves--;
+            }
+            return result;
+        }
+
+        private byte[] RightShiftOneBit(byte[] bytes) {
+            int index = GetStartIndex(bytes);
+            byte[] result = new byte[8];
+            Array.Copy(bytes, 1, result, 0, index);
+            return result;
+        }
+
         private byte[] LeftShift(byte[] bytes, int moves) {
             if (moves == 0) return bytes;
             byte[] result = bytes;
