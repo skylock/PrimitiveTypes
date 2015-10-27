@@ -225,14 +225,12 @@ namespace PrimitiveTypes
 
         [TestMethod]
         [TestCategory("13_Convert_To_Base")]
-        public void Test_Addition_In_Base_5()
+        public void Test_Add_49_To_24_In_Base_5()
         {
-            int expected = 25;
-
-            byte[] result = AddInBase(13, 12, 5);
+            byte[] result = AddInBase(49, 24, 5);
             int actual = ConvertFromBase(result, 5);
 
-            Assert.AreEqual(expected, actual);
+            Assert.AreEqual(73, actual);
         }
 
         private byte[] AddInBase(int firstValue, int secondValue, int inBase)
@@ -240,11 +238,16 @@ namespace PrimitiveTypes
             byte[] first = ConvertToBase(firstValue, inBase);
             byte[] second = ConvertToBase(secondValue, inBase);
             int minSize = Math.Min(first.Length, second.Length);
-            byte[] result = GetLargerArray(first, second);
-            for (int i = 0; i < minSize; i++)
-            {
-                int sum = (byte)(first[i] + second[i]);
-                result[i] = (byte)(sum % inBase);
+            byte[] result = new byte[minSize];
+            int toCarry = 0;
+            for (int i = 0; i < minSize; i++) {
+                int sum = (byte)(first[i] + second[i]) + toCarry;
+                if(toCarry > 0) toCarry--;
+                if (sum >= inBase) {
+                    sum = (byte)(sum % inBase);
+                    toCarry++;
+                }
+                result[i] = (byte)sum;
             }
             return result;
         }
