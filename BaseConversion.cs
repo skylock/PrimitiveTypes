@@ -260,15 +260,30 @@ namespace PrimitiveTypes
             Assert.AreEqual(1, actual);
         }
 
+        [TestMethod]
+        [TestCategory("13_Convert_To_Base")]
+        public void Test_Substract_4_From_625_In_Base_5() {
+            byte[] result = SubstractInBase(625, 4, 5);
+            int actual = ConvertFromBase(result, 5);
+
+            Assert.AreEqual(621, actual);
+        }
+
         private byte[] SubstractInBase(int firstValue, int secondValue, int inBase) {
             ValidateBase(inBase);
             if (firstValue < secondValue) throw new ArgumentException("First argument needs to be bigger than second.");
             byte[] first = ConvertToBase(firstValue, inBase);
             byte[] second = ConvertToBase(secondValue, inBase);
             byte[] result = new byte[first.Length];
-            int index = 0;
+            int borrowed = 0;
             for (int i = 0; i < first.Length; i++) {
-                result[i] = (byte)(first[i] - second[i]);
+                if (first[i] - borrowed < second[i]) {
+                    result[i] = (byte)(first[i] + inBase - borrowed - second[i]);
+                    borrowed = 1;
+                } else {
+                    result[i] = (byte)(first[i] - borrowed - second[i]);
+                    borrowed = 0;
+                }
             }
             return result;
         }
@@ -294,7 +309,7 @@ namespace PrimitiveTypes
             int toCarry = 0;
             for (int i = 0; i < minSize; i++) {
                 int sum = (byte)(first[i] + second[i]) + toCarry;
-                if(toCarry > 0) toCarry--;
+                toCarry = 0;
                 if (sum >= inBase) {
                     sum = (byte)(sum % inBase);
                     toCarry++;
