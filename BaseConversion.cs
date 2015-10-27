@@ -269,6 +269,29 @@ namespace PrimitiveTypes
             Assert.AreEqual(621, actual);
         }
 
+        [TestMethod]
+        [TestCategory("13_Convert_To_Base")]
+        public void Test_Devide_625_With_5_In_Base_5() {
+            byte[] result = DevideInBase(625, 5, 5);
+            int actual = ConvertFromBase(result, 5);
+
+            Assert.AreEqual(125, actual);
+        }
+
+        private byte[] DevideInBase(int firstValue, int secondValue, int inBase) {
+            ValidateBase(inBase);
+            byte[] result = new byte[0];
+            if (secondValue == 0) throw new ArgumentException("Atempt to devide by zero.");
+            int difference = firstValue;
+            int divisions = 0;
+            while(difference  > 0) {
+                result = SubstractInBase(difference, secondValue, inBase);
+                difference = ConvertFromBase(result, inBase);
+                divisions++;
+            }
+            return ConvertToBase(divisions, inBase);
+        }
+
         private byte[] SubstractInBase(int firstValue, int secondValue, int inBase) {
             ValidateBase(inBase);
             if (firstValue < secondValue) throw new ArgumentException("First argument needs to be bigger than second.");
