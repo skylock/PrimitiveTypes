@@ -253,20 +253,23 @@ namespace PrimitiveTypes
 
         [TestMethod]
         [TestCategory("13_Convert_To_Base")]
-        public void Test_Substract_4_From_25_In_Base_5() {
-            byte[] result = SubstractInBase(25, 4, 5);
+        public void Test_Substract_3_From_4_In_Base_5() {
+            byte[] result = SubstractInBase(4, 3, 5);
             int actual = ConvertFromBase(result, 5);
 
-            Assert.AreEqual(21, actual);
+            Assert.AreEqual(1, actual);
         }
 
         private byte[] SubstractInBase(int firstValue, int secondValue, int inBase) {
-            
+            ValidateBase(inBase);
+            if (firstValue < secondValue) throw new ArgumentException("First argument needs to be bigger than second.");
             byte[] first = ConvertToBase(firstValue, inBase);
             byte[] second = ConvertToBase(secondValue, inBase);
-            int minSize = Math.Min(first.Length, second.Length);
-            byte[] result = new byte[minSize];
-
+            byte[] result = new byte[first.Length];
+            int index = 0;
+            for (int i = 0; i < first.Length; i++) {
+                result[i] = (byte)(first[i] - second[i]);
+            }
             return result;
         }
 
