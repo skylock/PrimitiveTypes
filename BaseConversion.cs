@@ -242,8 +242,38 @@ namespace PrimitiveTypes
             Assert.AreEqual(1176, actual);
         }
 
+        [TestMethod]
+        [TestCategory("13_Convert_To_Base")]
+        public void Test_Multiply_49_To_0_In_Base_5() {
+            byte[] result = MultiplyInBase(49, 0, 5);
+            int actual = ConvertFromBase(result, 5);
+
+            Assert.AreEqual(0, actual);
+        }
+
+        [TestMethod]
+        [TestCategory("13_Convert_To_Base")]
+        public void Test_Substract_4_From_25_In_Base_5() {
+            byte[] result = SubstractInBase(25, 4, 5);
+            int actual = ConvertFromBase(result, 5);
+
+            Assert.AreEqual(21, actual);
+        }
+
+        private byte[] SubstractInBase(int firstValue, int secondValue, int inBase) {
+            
+            byte[] first = ConvertToBase(firstValue, inBase);
+            byte[] second = ConvertToBase(secondValue, inBase);
+            int minSize = Math.Min(first.Length, second.Length);
+            byte[] result = new byte[minSize];
+
+            return result;
+        }
+
         private byte[] MultiplyInBase(int firstValue, int secondValue, int inBase) {
+            ValidateBase(inBase);
             byte[] result = new byte[0];
+            if (firstValue == 0 || secondValue == 0) return result;
             int sum = 0;
             for (int i = 0; i < secondValue; i++) {
                 result = AddInBase(sum, firstValue, inBase);
