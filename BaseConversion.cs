@@ -236,10 +236,10 @@ namespace PrimitiveTypes
         [TestMethod]
         [TestCategory("13_Convert_To_Base")]
         public void Test_Multiply_49_To_24_In_Base_5() {
-            byte[] result = MultiplyInBase(49, 3, 5);
+            byte[] result = MultiplyInBase(49, 24, 5);
             int actual = ConvertFromBase(result, 5);
 
-            Assert.AreEqual(147, actual);
+            Assert.AreEqual(1176, actual);
         }
 
         private byte[] MultiplyInBase(int firstValue, int secondValue, int inBase) {
