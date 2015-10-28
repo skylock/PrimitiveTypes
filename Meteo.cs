@@ -14,7 +14,7 @@ namespace PrimitiveTypes
 
             weatherStation.AddReading(21.73);
 
-            double reading = weatherStation.GetReading(1);
+            double reading = weatherStation.GetReading(0);
 
             Assert.AreEqual(21.73, reading);
         }
@@ -30,11 +30,10 @@ namespace PrimitiveTypes
 
         internal double GetReading(uint day) {
             ValidateInput(day);
-            return dailyReadings[(int)day - 1];
+            return dailyReadings[(int)day];
         }
 
         private static void ValidateInput(uint day) {
-            if (day < 1) throw new ArgumentException("Day minimum value is 1.");
             if (day > dailyReadings.Count) throw new ArgumentException("Requested reading not in list.");
         }
 
