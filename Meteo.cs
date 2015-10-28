@@ -10,7 +10,7 @@ namespace PrimitiveTypes
     {
         [TestMethod]
         [TestCategory("14_Weather_Station")]
-        public void Test_Add_New_Daily_Reading() {
+        public void Test_Add_New_Reading() {
             ReadingsList readingsList = new ReadingsList();
 
             readingsList.Add(21.73);
@@ -22,7 +22,7 @@ namespace PrimitiveTypes
 
         [TestMethod]
         [TestCategory("14_Weather_Station")]
-        public void Test_Add_A_List_Of_Daily_Readings() {
+        public void Test_Add_A_List_Readings() {
             var readings = new List<double> { -5, -10, 0.23, 12.53, 17.05 };
             
             ReadingsList readingsList = new ReadingsList();
@@ -36,7 +36,7 @@ namespace PrimitiveTypes
 
         [TestMethod]
         [TestCategory("14_Weather_Station")]
-        public void Test_Average_Of_Daily_Readings() {
+        public void Test_Average_Of_The_Readings() {
             var readings = new List<double> { 7.15, 10, 9.23, 12.53, 17.05 };
 
             ReadingsList readingsList = new ReadingsList();
@@ -50,7 +50,7 @@ namespace PrimitiveTypes
 
         [TestMethod]
         [TestCategory("14_Weather_Station")]
-        public void Test_Minimum_Temperature_Of_Daily_Readings() {
+        public void Test_Minimum_Temperature_Of_The_Readings() {
             var readings = new List<double> { 10, 9.23, 12.53, 7.15, 17.05 };
 
             ReadingsList readingsList = new ReadingsList();
@@ -64,7 +64,7 @@ namespace PrimitiveTypes
 
         [TestMethod]
         [TestCategory("14_Weather_Station")]
-        public void Test_Maximum_Temperature_Of_Daily_Readings() {
+        public void Test_Maximum_Temperature_Of_The_Readings() {
             var readings = new List<double> { 10, 9.23, 12.53, 7.15, 17.05 };
 
             ReadingsList readingsList = new ReadingsList();
@@ -78,7 +78,7 @@ namespace PrimitiveTypes
 
         [TestMethod]
         [TestCategory("14_Weather_Station")]
-        public void Test_Maximum_Temperature_Difference_Of_Daily_Readings() {
+        public void Test_Maximum_Temperature_Difference_Of_The_Readings() {
             var readings = new List<double> { 10, 9.23, 12.53, 7.15, 17.05 };
 
             ReadingsList readingsList = new ReadingsList();
@@ -128,7 +128,6 @@ namespace PrimitiveTypes
                 return dailyReadings.Count;
             }
         }
-
 
         public double MinimumTemperature
         {
