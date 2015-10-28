@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
@@ -46,6 +47,48 @@ namespace PrimitiveTypes
 
             Assert.AreEqual(11.192, average, 3);
         }
+
+        [TestMethod]
+        [TestCategory("14_Weather_Station")]
+        public void Test_Minimum_Temperature_Of_Daily_Readings() {
+            var readings = new List<double> { 10, 9.23, 12.53, 7.15, 17.05 };
+
+            ReadingsList readingsList = new ReadingsList();
+
+            readingsList.Add(readings);
+
+            double minimumTemperature = readingsList.MinimumTemperature;
+
+            Assert.AreEqual(7.15, minimumTemperature);
+        }
+
+        [TestMethod]
+        [TestCategory("14_Weather_Station")]
+        public void Test_Maximum_Temperature_Of_Daily_Readings() {
+            var readings = new List<double> { 10, 9.23, 12.53, 7.15, 17.05 };
+
+            ReadingsList readingsList = new ReadingsList();
+
+            readingsList.Add(readings);
+
+            double maximumTemperature = readingsList.MaximumTemperature;
+
+            Assert.AreEqual(17.05, maximumTemperature);
+        }
+
+        [TestMethod]
+        [TestCategory("14_Weather_Station")]
+        public void Test_Maximum_Temperature_Difference_Of_Daily_Readings() {
+            var readings = new List<double> { 10, 9.23, 12.53, 7.15, 17.05 };
+
+            ReadingsList readingsList = new ReadingsList();
+
+            readingsList.Add(readings);
+
+            double maximumTemperature = readingsList.MaximumDiference;
+
+            Assert.AreEqual(9.9, maximumTemperature);
+        }
     }
 
     public struct ReadingsList 
@@ -86,5 +129,30 @@ namespace PrimitiveTypes
             }
         }
 
+
+        public double MinimumTemperature
+        {
+            get 
+            {
+                double[] result = dailyReadings.ToArray();
+                return result.Min();
+            }
+        }
+
+        public double MaximumTemperature
+        {
+            get {
+                double[] result = dailyReadings.ToArray();
+                return result.Max();
+            }
+        }
+
+        public double MaximumDiference 
+        {
+            get 
+            {
+                return this.MaximumTemperature - this.MinimumTemperature;
+            }
+        }
     }
 }
