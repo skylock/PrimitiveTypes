@@ -10,11 +10,11 @@ namespace PrimitiveTypes
         [TestMethod]
         [TestCategory("14_Weather_Station")]
         public void Test_Add_New_Daily_Reading() {
-            WeatherStation weatherStation = new WeatherStation();
+            ReadingsList readingsList = new ReadingsList();
 
-            weatherStation.AddReading(21.73);
+            readingsList.Add(21.73);
 
-            double reading = weatherStation.GetReading(0);
+            double reading = readingsList.GetReading(0);
 
             Assert.AreEqual(21.73, reading);
         }
@@ -24,25 +24,39 @@ namespace PrimitiveTypes
         public void Test_Add_A_List_Of_Daily_Readings() {
             var readings = new List<double> { -5, -10, 0.23, 12.53, 17.05 };
             
-            WeatherStation weatherStation = new WeatherStation();
+            ReadingsList readingsList = new ReadingsList();
 
-            weatherStation.AddReading(readings);
+            readingsList.Add(readings);
 
-            double reading = weatherStation.GetReading(4);
+            double reading = readingsList.GetReading(4);
 
             Assert.AreEqual(17.05, reading);
         }
+
+        [TestMethod]
+        [TestCategory("14_Weather_Station")]
+        public void Test_Average_Of_Daily_Readings() {
+            var readings = new List<double> { 7.15, 10, 9.23, 12.53, 17.05 };
+
+            ReadingsList readingsList = new ReadingsList();
+
+            readingsList.Add(readings);
+
+            double average = readingsList.AverageTemperature;
+
+            Assert.AreEqual(11.192, average, 3);
+        }
     }
 
-    public struct WeatherStation 
+    public struct ReadingsList 
     {
         private static List<double> dailyReadings = new List<double>();
 
-        public void AddReading(double temperature) {
+        public void Add(double temperature) {
             dailyReadings.Add(temperature);
         }
 
-        public void AddReading(List<double> temperatures) {
+        public void Add(List<double> temperatures) {
             foreach (var value in temperatures) dailyReadings.Add(value);
         }
 
@@ -52,7 +66,18 @@ namespace PrimitiveTypes
         }
 
         private static void ValidateInput(uint day) {
-            if (day > dailyReadings.Count) throw new ArgumentException("Requested reading not in list.");
+            if (day > dailyReadings.Count) throw new ArgumentException("Requested reading is not in list.");
+        }
+
+        public double AverageTemperature {
+            get 
+            {
+                double sum = 0;
+                foreach (var value in dailyReadings) {
+                    sum += value;
+                }
+                return sum / dailyReadings.Count;
+            }
         }
 
         public int Readings {
