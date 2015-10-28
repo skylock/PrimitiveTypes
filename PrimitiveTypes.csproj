@@ -64,6 +64,7 @@
     <Compile Include="Mushrooms.cs" />
     <Compile Include="Loto.cs" />
     <Compile Include="SecretMessages.cs" />
+    <Compile Include="Meteo.cs" />
     <Compile Include="WoodenFloor.cs" />
     <Compile Include="Watermelon.cs" />
   </ItemGroup>
