@@ -6,8 +6,8 @@ namespace PrimitiveTypes
     [TestClass]
     public class StringReverseReplace
     {
-        // Inversează un string folosind recursivitatea.
         [TestMethod]
+        [TestCategory("15_String_Reverse_And_Replace")]
         public void ReverseString_StringIsEmpty_ReturnsEmptyString() {
             string value = string.Empty;
 
@@ -17,6 +17,7 @@ namespace PrimitiveTypes
         }
 
         [TestMethod]
+        [TestCategory("15_String_Reverse_And_Replace")]
         public void ReverseString_StringHasOneCharacter_ReturnsSameString() {
             string value = "a";
 
@@ -26,6 +27,7 @@ namespace PrimitiveTypes
         }
 
         [TestMethod]
+        [TestCategory("15_String_Reverse_And_Replace")]
         public void ReverseString_StringHasMoreCharacters_ReturnsReversedString() {
             string value = "abc";
 
@@ -45,8 +47,7 @@ namespace PrimitiveTypes
 
             char car = value[0];
             string cdr = value.Substring(1);
-            string result = ReverseString(cdr) + car;
-            return result;
+            return ReverseString(cdr) + car;
         }
     }
 }
