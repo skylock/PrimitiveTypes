@@ -8,7 +8,8 @@ namespace PrimitiveTypes
     {
         [TestMethod]
         [TestCategory("15_String_Reverse_And_Replace")]
-        public void ReverseString_StringIsEmpty_ReturnsEmptyString() {
+        public void ReverseString_StringIsEmpty_ReturnsEmptyString()
+        {
             string value = string.Empty;
 
             string actual = ReverseString(value);
@@ -18,7 +19,8 @@ namespace PrimitiveTypes
 
         [TestMethod]
         [TestCategory("15_String_Reverse_And_Replace")]
-        public void ReverseString_StringHasOneCharacter_ReturnsSameString() {
+        public void ReverseString_StringHasOneCharacter_ReturnsSameString()
+        {
             string value = "a";
 
             string actual = ReverseString(value);
@@ -28,7 +30,8 @@ namespace PrimitiveTypes
 
         [TestMethod]
         [TestCategory("15_String_Reverse_And_Replace")]
-        public void ReverseString_StringHasMoreCharacters_ReturnsReversedString() {
+        public void ReverseString_StringHasMoreCharacters_ReturnsReversedString()
+        {
             string value = "abc";
 
             string actual = ReverseString(value);
@@ -36,12 +39,35 @@ namespace PrimitiveTypes
             Assert.AreEqual("cba", actual);
         }
 
-        private string ReverseString(string value) {
-            if (string.IsNullOrEmpty(value)) {
+        [TestMethod]
+        [TestCategory("15_String_Reverse_And_Replace")]
+        public void ReplaceInString_StringIsEmpty_ReturnsEmptyString()
+        {
+            string value = string.Empty;
+
+            string actual = ReplaceInString(value, 'i', "ai");
+
+            Assert.AreEqual(string.Empty, actual);
+        }
+
+        private string ReplaceInString(string value, char ch, string inserted)
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                return value;
+            }
+            return string.Empty;
+        }
+
+        private string ReverseString(string value)
+        {
+            if (string.IsNullOrEmpty(value))
+            {
                 return value;
             }
 
-            if (value.Length == 1) {
+            if (value.Length == 1)
+            {
                 return value;
             }
 
