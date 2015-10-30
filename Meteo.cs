@@ -82,7 +82,6 @@ namespace PrimitiveTypes
             var readings = new List<double> { 10, 9.23, 12.53, 7.15, 17.05 };
 
             ReadingsList readingsList = new ReadingsList();
-
             readingsList.Add(readings);
 
             double maximumTemperature = readingsList.MaximumDiference;
@@ -93,13 +92,15 @@ namespace PrimitiveTypes
 
     public struct ReadingsList 
     {
-        private List<double> dailyReadings = new List<double>();
+        public List<double> dailyReadings;
 
         public void Add(double temperature) {
+            if (dailyReadings == null) dailyReadings = new List<double>();
             dailyReadings.Add(temperature);
         }
 
         public void Add(List<double> temperatures) {
+            if (dailyReadings == null) dailyReadings = new List<double>();
             foreach (var value in temperatures) dailyReadings.Add(value);
         }
 
