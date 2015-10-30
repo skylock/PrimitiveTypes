@@ -50,13 +50,26 @@ namespace PrimitiveTypes
             Assert.AreEqual(string.Empty, actual);
         }
 
+        [TestMethod]
+        [TestCategory("15_String_Reverse_And_Replace")]
+        public void ReplaceInString_SearchedCharacterIsFound_ReturnsModifiedString() {
+            string value = "abcabcabcabcabc";
+
+            string actual = ReplaceInString(value, 'b', "###");
+
+            Assert.AreEqual("a###ca###ca###ca###ca###c", actual);
+        }
+
         private string ReplaceInString(string value, char ch, string inserted)
         {
             if (string.IsNullOrEmpty(value))
             {
                 return value;
             }
-            return string.Empty;
+            char car = value[0];
+            string cdr = value.Substring(1);
+            if (car == ch) return inserted + ReplaceInString(cdr, ch, inserted);
+            return car + ReplaceInString(cdr, ch, inserted);
         }
 
         private string ReverseString(string value)
