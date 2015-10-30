@@ -93,7 +93,7 @@ namespace PrimitiveTypes
 
     public struct ReadingsList 
     {
-        private static List<double> dailyReadings = new List<double>();
+        private List<double> dailyReadings = new List<double>();
 
         public void Add(double temperature) {
             dailyReadings.Add(temperature);
@@ -108,7 +108,7 @@ namespace PrimitiveTypes
             return dailyReadings[(int)day];
         }
 
-        private static void ValidateInput(uint day) {
+        private void ValidateInput(uint day) {
             if (day > dailyReadings.Count) throw new ArgumentException("Requested reading is not in list.");
         }
 
