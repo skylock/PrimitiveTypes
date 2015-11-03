@@ -7,6 +7,7 @@
     public class PocketCalculator
     {
         [TestMethod]
+        [TestCategory("16_PocketCalculator")]
         public void Add_TwoNumbers_ReturnsResult() {
             string input = "+ 3 4";
 
