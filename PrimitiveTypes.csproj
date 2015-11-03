@@ -66,6 +66,7 @@
     <Compile Include="SecretMessages.cs" />
     <Compile Include="Meteo.cs" />
     <Compile Include="StringReverseReplace.cs" />
+    <Compile Include="PocketCalculator.cs" />
     <Compile Include="WoodenFloor.cs" />
     <Compile Include="Watermelon.cs" />
   </ItemGroup>
