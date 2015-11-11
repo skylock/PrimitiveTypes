@@ -8,16 +8,26 @@
     {
         [TestMethod]
         [TestCategory("16_PocketCalculator")]
-        public void Add_TwoNumbers_ReturnsResult() {
-            string input = "+ 3 4";
+        [ExpectedException(typeof(ArgumentException))]
+        public void Compute_StringIsEmpty_ReturnsEmptyString() {
+            string value = string.Empty;
+
+            double actual = Compute(value);
+        }
+
+        [TestMethod]
+        [TestCategory("16_PocketCalculator")]
+        public void Compute_SimpleOperationForTwoNumbers_ReturnsResult() {
+            string input = "* 3 4";
 
             double result = Compute(input);
 
-            Assert.AreEqual(7, result, 0);
+            Assert.AreEqual(12, result, 0);
         }
 
         private double Compute(string input) {
-            throw new NotImplementedException();
+            if (String.IsNullOrEmpty(input)) return 0;
+            return 0;
         }
     }
 }
